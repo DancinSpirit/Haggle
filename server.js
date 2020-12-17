@@ -24,6 +24,11 @@ app.use(methodOverride("_method"));
 app.use("/players", controllers.players);
 
 
+/* Home Route */
+app.get("/", function(req, res){
+    res.render("home");
+})
+
 /* Listener */
 app.listen(PORT, function(){
    console.log(`Live at http://localhost:${PORT}/`);

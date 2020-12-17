@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const dbUrl = "mongodb://localhost:27017/haggle";
 
-mongoose.connect(mongoUrl, {
+mongoose.connect(dbUrl, {
    useNewUrlParser: true,
    useUnifiedTopology: true,
    useFindAndModify: false,
