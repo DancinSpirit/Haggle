@@ -7,4 +7,7 @@ const ruleScema = new mongoose.Schema(
         isSecret = {type: Boolean},
         originalPlayer = {type: mongoose.Schema.Types.ObjectId, ref: "Player"}
     }
+    {timestamps: true}
 )
+
+module.exports = Rule;
