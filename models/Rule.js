@@ -6,7 +6,7 @@ const ruleSchema = new mongoose.Schema(
         info = {type: String, required: true},
         isSecret = {type: Boolean},
         originalPlayer = {type: mongoose.Schema.Types.ObjectId, ref: "Player"}
-    }
+    },
     {timestamps: true}
 )
 
