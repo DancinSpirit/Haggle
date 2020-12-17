@@ -5,7 +5,11 @@ Haggle! is a game where 1 person is Gamemaster and 4 to 8 players trade for item
 The Home Page will be a page that welcomes the user and then asks them whether they are a "Player" or the "Game Master".
 ### Gamemaster
 #### Game Setup
-Gamemasters start by being greeted with a Game Creation screen where they can add players to the player database. If they've already done this they will instead be sent to the Gamemaster Players screen
+The gamemaster starts by being greeted with a Game Creation screen where they can add players to the player database. If they've already done this they will instead be sent to the Gamemaster Players screen
 #### Gamemaster Players Screen
-
+In this screen the gamemaster will be shown a list of all the players. Each player will have two buttons next to them redirecting to the Player's Rules, and Player's Items.
+#### Player Rules and Player Items
+Both the Player Rules and Player Items screens function identically. The Gamemaster will see a list of that player's rules/items as well as all of it's information. They will also be able to add more rules/items to that player via a dropdown list at the bottom of the screen.
+#### Gamemaster Nav Bar
+Of course in order to add rules and items to players they have to exist first. There is a navbar at the top of the screen where the gamemaster can navigate to Items, Rules, Players, or the Trade Screen.
 
