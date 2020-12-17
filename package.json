@@ -1,0 +1,24 @@
+{
+  "name": "haggle",
+  "version": "1.0.0",
+  "description": "A game of bargaining and intrigue!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.generalassemb.ly/dancingspirit/Haggle.git"
+  },
+  "keywords": [
+    "haggle"
+  ],
+  "author": "Maiki Moseley and Ramon Cavalleiro",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.11.8"
+  }
+}
