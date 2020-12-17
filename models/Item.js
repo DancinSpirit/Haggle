@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const itemScehma = new mongoose.Schema(
+const itemSchema = new mongoose.Schema(
     {
         name: {type: String, required: true, unique: true},
         pointValue: {type: Number}
@@ -8,6 +8,6 @@ const itemScehma = new mongoose.Schema(
     {timestamps: true}
 )
 
-const Item = mongoose.model("Item", userScehma);
+const Item = mongoose.model("Item", userSchema);
 
 module.exports = Item;
