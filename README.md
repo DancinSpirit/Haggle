@@ -9,7 +9,7 @@ The Home Page will be a page that welcomes the user and then asks them whether t
 ![Game_Setup](haggle_wireframes/route_gamemaster_newplayers_IF_Players_empty.png)
 The gamemaster starts by being greeted with a Game Creation screen where they can add players to the player database. If they've already done this they will instead be sent to the Gamemaster Players screen
 #### Gamemaster Players Screen
-![Gamemaset_Players_Screen](haggle_wireframes/route_gamemaster_players_IF_Players_not_empty.png)
+![Gamemaster_Players_Screen](haggle_wireframes/route_gamemaster_players_IF_Players_not_empty.png)
 In this screen the gamemaster will be shown a list of all the players. Each player will have two buttons next to them redirecting to the Player's Rules, and Player's Items.
 #### Player Rules and Player Items
 ![Player Rules](haggle_wireframes/route_gamemaster_players__id_rules.png)
