@@ -5,6 +5,7 @@ const methodOverride = require("method-override");
 /* Interal Modules */
 const db = require("./models");
 const ctrl = require("./controllers");
+const controllers = require("./controllers");
 
 /* Instanced Modules */
 const app = express();
@@ -20,6 +21,8 @@ app.use(methodOverride("_method"));
 
 /* Controllers */
 
+app.use("/players", controllers.players);
+
 
 /* Home Route */
 app.get("/", function(req, res){
@@ -28,5 +31,5 @@ app.get("/", function(req, res){
 
 /* Listener */
 app.listen(PORT, function(){
-   console.log(`Live at http://localhost:PORT/`);
+   console.log(`Live at http://localhost:${PORT}/`);
 })
