@@ -12,7 +12,7 @@ The gamemaster starts by being greeted with a Game Creation screen where they ca
 ![Gamemaset_Players_Screen](haggle_wireframes/route_gamemaster_players_IF_Players_not_empty.png)
 In this screen the gamemaster will be shown a list of all the players. Each player will have two buttons next to them redirecting to the Player's Rules, and Player's Items.
 #### Player Rules and Player Items
-![Player Rules](haggle_wireframes/route_gamemaster_players_id_rules.png)
+![Player Rules](haggle_wireframes/route_gamemaster_players__id_rules.png)
 Both the Player Rules and Player Items screens function identically. The Gamemaster will see a list of that player's rules/items as well as all of it's information. They will also be able to add more rules/items to that player via a dropdown list at the bottom of the screen.
 #### Gamemaster Nav Bar
 Of course in order to add rules and items to players they have to exist first. There is a navbar at the top of the screen where the gamemaster can navigate to Items, Rules, Players, or the Trade Screen.
