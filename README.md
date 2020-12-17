@@ -33,7 +33,7 @@ The player screen will show the player all of their current items as well as all
 ## ERD
 ![ERD](haggle_wireframes/ERD.png)
 ## Stretch Goals
-Stretch Goals include a login feature so that players can't cheat and learn other rules on other player pages/the game master page, as well as letting players initiate and confirm trades on the player side so that the game master doesn't have to be present. Further stretch goals might inculde adding a store or implementing more complex rules.
+Stretch Goals include a login feature so that players can't cheat and learn other rules on other player pages/the game master page, as well as letting players initiate and confirm trades on the player side so that the game master doesn't have to be present. Further stretch goals might include adding a store or implementing more complex rules.
 ## Milestones
 1. Creating the Server and Databases.
 1. Implement Relationships between Models
