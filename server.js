@@ -20,10 +20,12 @@ app.use(methodOverride("_method"));
 
 /* Controllers */
 
+
 /* Home Route */
 app.get("/", function(req, res){
     res.render("home");
 })
+
 /* Listener */
 app.listen(PORT, function(){
    console.log(`Live at http://localhost:PORT/`);
