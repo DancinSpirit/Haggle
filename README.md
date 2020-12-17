@@ -24,8 +24,8 @@ The player screen will show the player all of their current items as well as all
 ## Stretch Goals
 Stretch Goals include a login feature so that players can't cheat and learn other rules on other player pages/the game master page, as well as letting players initiate and confirm trades on the player side so that the game master doesn't have to be present. Further stretch goals might inculde adding a store or implementing more complex rules.
 ## Milestones
-Creating the Server and Databases.\
-Implement Relationships between Models\
-Create and Implement Gamemaster CRUD Functionality\
-Get Trading to Work\
-Implent CSS and Javascript to make the web app look good\
+1. Creating the Server and Databases.
+1. Implement Relationships between Models
+1. Create and Implement Gamemaster CRUD Functionality
+1. Get Trading to Work
+1. Implent CSS and Javascript to make the web app look good
