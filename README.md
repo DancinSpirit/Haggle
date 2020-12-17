@@ -28,7 +28,7 @@ Finally once the gamemaster has added all of the items, rules, and then distribu
 ![Player Select](haggle_wireframes/route_players.png)
 Upon hitting "Players" on the homepage Players will be taken to a Player select where they can choose which player they are. They will then be taken to their Player Screen.
 #### Player Screen
-![Player Screen](haggle_wireframes/route_players_id.png)
+![Player Screen](haggle_wireframes/player_wireframe.png)
 The player screen will show the player all of their current items as well as all of their known rules.
 ## ERD
 ![ERD](haggle_wireframes/ERD.png)
