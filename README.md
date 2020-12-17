@@ -6,16 +6,21 @@ Haggle! is a game where 1 person is Gamemaster and 4 to 8 players trade for item
 The Home Page will be a page that welcomes the user and then asks them whether they are a "Player" or the "Game Master".
 ### Gamemaster
 #### Game Setup
+![Game_Setup](haggle_wireframes/route_gamemaster_newplayers_IF_Players_empty.png)
 The gamemaster starts by being greeted with a Game Creation screen where they can add players to the player database. If they've already done this they will instead be sent to the Gamemaster Players screen
 #### Gamemaster Players Screen
+![Gamemaset_Players_Screen](haggle_wireframes/route_gamemaster_players_IF_Players_not_empty.png)
 In this screen the gamemaster will be shown a list of all the players. Each player will have two buttons next to them redirecting to the Player's Rules, and Player's Items.
 #### Player Rules and Player Items
+![Player Rules](haggle_wireframes/route_gamemaster_players_id_rules.png)
 Both the Player Rules and Player Items screens function identically. The Gamemaster will see a list of that player's rules/items as well as all of it's information. They will also be able to add more rules/items to that player via a dropdown list at the bottom of the screen.
 #### Gamemaster Nav Bar
 Of course in order to add rules and items to players they have to exist first. There is a navbar at the top of the screen where the gamemaster can navigate to Items, Rules, Players, or the Trade Screen.
 #### Items/Rules
+![Gamemaster Items](haggle_wireframes/route_gamemaster_items.png)
 The Items and Rules pages are pages where the gamemaster can see lists of all current Items/Rules. They can directly edit the information, as well as hit a button to delete a rule/item. At the bottom of the page is a section where you can add new rules/items. We decided to do things this way in order to economize on the number of views.
 #### Trade
+![Trade!](haggle_wireframes/route_gamemaster_trade.png)
 Finally once the gamemaster has added all of the items, rules, and then distributed them out amongst players, the game can properly begin. Whenever two players agree on a trade, the gamemaster can facilitate this by clicking on Trade! in the navbar. This will bring them to the trade screen. The trade screen will have three drop down menus on each side where the gamemaster can choose a Player, any number of that player's items, and any number of that player's rules. (Rules are not "traded" so much as "given"). The gamemaster can then hit the Trade! button to initate the trade which will update the database to reflect the trade.
 ### Player
 #### Player Select
