@@ -14,9 +14,11 @@ const router = express.Router();
 
 //index - GET - / - presentational - respond with all players
 
-router.get("/", function (req, res) {
+router.get("/", async function (req, res) {
    try {
-        res.render("players/index");
+       const allPlayers = await db.Player.find({});
+
+    res.render("players/index", {players: allPlayers});
 
    } catch (err) {
        res.send(err)
@@ -26,9 +28,11 @@ router.get("/", function (req, res) {
 
 //show - GET - /:id - presentational - respond with specific player by id
 
-router.get("/:id", function (req, res) {
+router.get("/:id", async function (req, res) {
     try {
-         res.render("players/show");
+
+        const foundPlayer = await db.Player.find(req.params.id);
+         res.render("players/show", {player: foundPlayer});
  
     } catch (err) {
         res.send(err);

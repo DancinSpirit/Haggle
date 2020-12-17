@@ -6,6 +6,15 @@
     <title>PLAYER</title>
 </head>
 <body>
-    <h1>show</h1>
+    <h1><%= player.name %> </h1>
+
+    <ul>
+        <% player.items.forEach(item => { %>
+            
+            <li><%= player.item.name %></li>
+        <% }) %>
+    </ul>
+
+
 </body>
 </html>
