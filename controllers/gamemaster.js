@@ -24,8 +24,8 @@ router.get("/players/:id/items", async function (req, res) {
     try {
         const id = req.params.id;
         const foundPlayer = await db.Player.findById(id);
-        const allRules = await db.Item.find({});
-        const context = {info: {player: foundPlayer, items: allRules}};
+        const allItems = await db.Item.find({});
+        const context = {info: {player: foundPlayer, items: allItems}};
         res.render("gamemaster/players/items", context);
     } catch (err){
         res.send(err);
