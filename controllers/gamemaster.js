@@ -9,6 +9,7 @@ const router = express.Router();
 
 //base route /gamemaster
 
+/* Show Gamemaster Player Screen */
 router.get("/players", async function (req, res) {
     try {
         const allPlayers = await db.Player.find({});
@@ -18,6 +19,33 @@ router.get("/players", async function (req, res) {
     }
 })
 
+/* Show Player Item Screen */
+router.get("/players/:id/items", async function (req, res) {
+    try {
+        const id = req.params.id;
+        const foundPlayer = await db.Player.findById(id);
+        const allItems = await db.Item.find({});
+        const context = {info: {player: foundPlayer, items: allItems}};
+        res.render("gamemaster/players/items", context);
+    } catch (err){
+        res.send(err);
+    }
+})
+
+/* Show Player Rules Screen */
+router.get("/players/:id/rules", async function (req, res) {
+    try {
+        const id = req.params.id;
+        const foundPlayer = await db.Player.findById(id);
+        const allRules = await db.Rule.find({});
+        const context = {info: {player: foundPlayer, rules: allRules}};
+        res.render("gamemaster/players/rules", context);
+    } catch (err){
+        res.send(err);
+    }
+})
+
+/* Create New Player */
 router.post("/players", async function (req, res){
     try{
         await db.Player.create(req.body);

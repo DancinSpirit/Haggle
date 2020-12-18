@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= info.player.name %>'s Items</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body>
+    <%- include("../../partials/nav") %>
+    <h1><%= info.player.name %>'s Items</h1>
+    <ul>
+        <% info.player.items.forEach(item => { %>
+            <li><%= info.player.item.name %></li>
+        <% }) %>
+    </ul>
+    <form action="/gamemaster/players" method="POST">
+        <select name="item">
+            <% info.items.forEach(item => { %>
+                <option value="<%= item._id %>"><%=item.name%></option> 
+            <% }) %>
+        </select>
+        <input type="submit" value="Add New Item">
+    </form>
+</body>
+</html>
