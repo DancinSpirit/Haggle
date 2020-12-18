@@ -11,10 +11,11 @@
     <h1><%= player.name %>'s Items</h1>
     <ul>
         <% player.items.forEach(item => { %>
-            <%console.log(item.name);%>
+            <%console.log("1",item.name);%>
             <li><%= item.name %></li>
         <% }) %>
     </ul>
+    
     <form action="/gamemaster/players/<%=player._id%>/items" method="POST">
         <select name="item">
             <% items.forEach(item => { %>

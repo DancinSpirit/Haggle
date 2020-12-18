@@ -23,7 +23,7 @@ router.get("/players", async function (req, res) {
 router.get("/players/:id/items", async function (req, res) {
     try {
         const id = req.params.id;
-        const foundPlayer = await db.Player.findById(id);
+        const foundPlayer = await db.Player.findById(id).populate("items");
         const allItems = await db.Item.find({});
         const context = {player: foundPlayer, items: allItems};
         res.render("gamemaster/players/items", context);
@@ -60,13 +60,20 @@ router.post("/players", async function (req, res){
 router.post("/players/:id/items", async function (req, res){
     try{
         const id = req.params.id;
-        const foundPlayer = await db.Player.findById(id);
+        
+        //console.log("founditems", req.body.item);
         const foundItem = await db.Item.findById(req.body.item)
-        foundPlayer.items.push(foundItem);
-        foundPlayer.save();
-        const allItems = await db.Item.find({});
-        const context = {player: foundPlayer, items: allItems};
-        return res.render("gamemaster/players/items", context);
+        //console.log("foundItem", foundItem);
+        const foundPlayer = await db.Player.findById(id);
+
+        foundPlayer.items.push(foundItem._id);
+        await foundPlayer.save();
+        console.log("foundPlayer", foundPlayer);
+        // foundPlayer.populate("items");
+
+        
+        //const allItems = await db.Item.find({});
+        return res.redirect(`/gamemaster/players/${id}/items`);
     } catch(err){
         return res.send(err);
     }
