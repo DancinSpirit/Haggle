@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RULES</title>
+</head>
+<body>
+    <%- include("../partials/nav") %>
+
+    <h1>DEFINE the game RULES</h1>
+
+    <% if (!rules.length) { %>
+     
+        <h2>Game has no rules yet</h2>
+
+    <% } else { %>
+
+        <h2>Rules List</h2>
+
+        <ul>
+            <% rules.forEach(rule => { %>
+
+                <li>RULE NUMBER: <%= rule.number %> 
+                <ul>    
+                    <li><%= rule.info %></li>
+                    <li><%= (rule.isSecret ? "This is a secret! SHHHHH!" : "This is common knowledge!") %></li>
+                </ul>
+                </li>
+
+                <form action="/gamemaster/rules/<%= rule._id %>?_method=DELETE" method="post">
+
+                    <input type="submit" value="DELETE RULE">
+                </form>
+            
+            <% }) %>
+        </ul>
+
+    <% } %>
+
+    <h2>ADD RULE</h2>
+    <form action="/gamemaster/rules" method="POST">
+    
+        Rule Number: <input type="text" name="number" required placeholder="rule">
+        Info: <input type="text" name="info" required placeholder="Rule description">
+        Secrecy: <input type="checkbox" name="isSecret">
+
+        <input type="submit" value="ENTER NEW RULE">
+    
+    </form>
+    
+     
+
+    
+</body>
+</html>

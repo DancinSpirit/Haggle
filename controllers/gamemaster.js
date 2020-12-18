@@ -62,7 +62,7 @@ router.get("/items", async function (req, res) {
     try {
 
         const allItems = await db.Item.find({});
-         res.render("gamemaster/items", {items: allItems});
+         res.render("gamemaster/items_index", {items: allItems});
  
     } catch (err) {
         res.send(err);
@@ -89,6 +89,55 @@ router.get("/items", async function (req, res) {
         const deletedItem = await db.Item.findByIdAndDelete(req.params.id);
         console.log(deletedItem);
         res.redirect("/gamemaster/items");
+ 
+    } catch (err) {
+        res.send(err);
+    }
+ 
+ })
+
+ /* RULES ROUTE */
+//index
+router.get("/rules", async function (req, res) {
+    try {
+
+        const allRules = await db.Rule.find({});
+         res.render("gamemaster/rules_index", {rules: allRules});
+ 
+    } catch (err) {
+        res.send(err);
+    }
+ 
+ })
+//create
+ router.post("/rules", async function (req, res) {
+    try {
+        if (req.body.isSecret) {
+            req.body.isSecret = true;
+            
+        } else {
+            req.body.isSecret = false
+            
+        }
+
+        console.log(req.body);
+
+        const createdRule = await db.Rule.create(req.body);
+        console.log(createdRule);
+        res.redirect("/gamemaster/rules");
+ 
+    } catch (err) {
+        res.send(err);
+    }
+ 
+ })
+ //delete
+ router.delete("/rules/:id", async function (req, res) {
+    try {
+
+        const deletedRule = await db.Rule.findByIdAndDelete(req.params.id);
+        console.log(deletedRule);
+        res.redirect("/gamemaster/rules");
  
     } catch (err) {
         res.send(err);
