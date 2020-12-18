@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= info.player.name %>'s Items</title>
+    <title><%= player.name %>'s Items</title>
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
     <%- include("../../partials/nav") %>
-    <h1><%= info.player.name %>'s Items</h1>
+    <h1><%= player.name %>'s Items</h1>
     <ul>
-        <% info.player.items.forEach(item => { %>
-            <li><%= info.player.item.name %></li>
+        <% player.items.forEach(item => { %>
+            <%console.log("1",item.name);%>
+            <li><%= item.name %></li>
         <% }) %>
     </ul>
-    <form action="/gamemaster/players" method="POST">
+    
+    <form action="/gamemaster/players/<%=player._id%>/items" method="POST">
         <select name="item">
-            <% info.items.forEach(item => { %>
+            <% items.forEach(item => { %>
                 <option value="<%= item._id %>"><%=item.name%></option> 
             <% }) %>
         </select>

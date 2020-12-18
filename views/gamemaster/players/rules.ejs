@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= info.player.name %>'s Rules</title>
+    <title><%= player.name %>'s Rules</title>
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
     <%- include("../../partials/nav") %>
-    <h1><%= info.player.name %>'s Rules</h1>
+    <h1><%=.player.name %>'s Rules</h1>
     <ul>
-        <% info.player.rules.forEach(rule => { %>
-            <li>Rule <%= info.player.rule.number %></li>
-            <li><%= info.player.rule.info %></li>
+        <% player.rules.forEach(rule => { %>
+            <li>Rule <%= player.rule.number %></li>
+            <li><%= player.rule.info %></li>
         <% }) %>
     </ul>
-    <form action="/gamemaster/players" method="POST">
+    <form action="/gamemaster/players/<%=player._id%>/rules" method="POST">
         <select name="rule">
-            <% info.rules.forEach(rule => { %>
+            <% rules.forEach(rule => { %>
                 <option value="<%= rule._id %>"><%=rule.number%></option> 
             <% }) %>
         </select>
