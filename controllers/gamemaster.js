@@ -48,9 +48,20 @@ router.get("/players/:id/rules", async function (req, res) {
 /* Create New Player */
 router.post("/players", async function (req, res){
     try{
-        await db.Player.create(req.body);
+        let playerExists = false;
         const allPlayers = await db.Player.find({});
-        return res.render("gamemaster/players", {players: allPlayers});
+        allPlayers.forEach(player => {
+            if(req.body.name==player.name){
+                playerExists = true;
+            }    
+        });
+        if(!playerExists){
+            await db.Player.create(req.body);
+            return res.redirect("/gamemaster/players")
+        }else {
+            const context = {description: "You tried to add a player that already exists!", redirect: "/gamemaster/players", button: "Players Page"};
+            return res.render("error",context);    
+        }
     } catch(err){
         return res.send(err);
     }
@@ -91,7 +102,7 @@ router.get("/items", async function (req, res) {
     try {
 
         const allItems = await db.Item.find({});
-         res.render("gamemaster/items_index", {items: allItems});
+        res.render("gamemaster/items_index", {items: allItems});
  
     } catch (err) {
         res.send(err);
@@ -124,7 +135,7 @@ router.get("/items", async function (req, res) {
  //delete
  router.delete("/items/:id", async function (req, res) {
     try {
-
+        await db.Player.updateMany({},{$pull: {"items": req.params.id}});
         const deletedItem = await db.Item.findByIdAndDelete(req.params.id);
         console.log(deletedItem);
         res.redirect("/gamemaster/items");
@@ -182,11 +193,10 @@ router.get("/rules", async function (req, res) {
  //delete
  router.delete("/rules/:id", async function (req, res) {
     try {
-
+        await db.Player.updateMany({},{$pull: {"rules": req.params.id}});
         const deletedRule = await db.Rule.findByIdAndDelete(req.params.id);
         console.log(deletedRule);
         res.redirect("/gamemaster/rules");
- 
     } catch (err) {
         res.send(err);
     }
