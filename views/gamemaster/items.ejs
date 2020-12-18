@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITEMS</title>
+</head>
+<body>
+    <%- include("../partials/nav") %>
+
+    <h1>DEFINE the game ITEMS</h1>
+
+    <% if (!items.length) { %>
+     
+        <h2>Game has no items yet</h2>
+
+    <% } else { %>
+
+        <h2>Items List</h2>
+
+        <ul>
+            <% items.forEach(item => { %>
+    
+                <li><%= item.name %> ///// $£ <%= item.pointValue %> </li>
+
+                <a href="gamemaster/items/<%= item._id %>">Edit</a>
+            
+            <% }) %>
+        </ul>
+
+    <% } %>
+
+    <h2>ADD ITEM</h2>
+    <form action="/gamemaster/items" method="POST">
+    
+        Name: <input type="text" name="name" required placeholder="item">
+        Value: <input type="number" name="pointValue" required >
+
+        <input type="submit" value="ENTER NEW ITEM">
+    
+    </form>
+    
+     
+
+    
+</body>
+</html>

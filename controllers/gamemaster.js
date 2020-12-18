@@ -56,4 +56,30 @@ router.post("/players", async function (req, res){
     }
 })
 
+/* ITEMS ROUTE */
+router.get("/items", async function (req, res) {
+    try {
+
+        const allItems = await db.Item.find({});
+         res.render("gamemaster/items", {items: allItems});
+ 
+    } catch (err) {
+        res.send(err);
+    }
+ 
+ })
+
+ router.post("/items", async function (req, res) {
+    try {
+
+        const createdItem = await db.Item.create(req.body);
+        console.log(createdItem);
+        res.redirect("/gamemaster/items");
+ 
+    } catch (err) {
+        res.send(err);
+    }
+ 
+ })
+
 module.exports = router;
