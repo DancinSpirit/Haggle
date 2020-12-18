@@ -17,8 +17,20 @@
     </ul>
     <form action="/gamemaster/players/<%=player._id%>/rules" method="POST">
         <select name="rule">
+            <% let ruleExists = false; %>
             <% rules.forEach(rule => { %>
-                <option value="<%= rule._id %>"><%=rule.number%></option> 
+                <% player.rules.forEach(playerRule =>{%>
+                    <% if(rule.number==playerRule.number){%>
+                        <%console.log(rule.number + " " + playerRule.number);%>
+                        <% ruleExists = true;%>
+                    <%}%>
+                <% }) %>
+                <% if(!ruleExists){ %>
+                    <% if(rule.isSecret){%>}
+                        <option value="<%= rule._id %>"><%=rule.number%></option> 
+                    <%}%>
+                <% } %>
+                <%ruleExists=false;%>
             <% }) %>
         </select>
         <input type="submit" value="Add New Rule">

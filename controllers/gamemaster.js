@@ -101,10 +101,20 @@ router.get("/items", async function (req, res) {
 //create
  router.post("/items", async function (req, res) {
     try {
-
-        const createdItem = await db.Item.create(req.body);
-        console.log(createdItem);
-        res.redirect("/gamemaster/items");
+        let itemExists = false;
+        const allItems = await db.Item.find({});
+        allItems.forEach(item => {
+            if(req.body.name==item.name){
+                itemExists = true;
+            }    
+        });
+        if(!itemExists){
+            const createdItem = await db.Item.create(req.body);
+            res.redirect("/gamemaster/items");
+        }else {
+            const context = {description: "You tried to add an item with an item name that already exists!", redirect: "/gamemaster/items", button: "Items Page"};
+            return res.render("error",context);
+        }
  
     } catch (err) {
         res.send(err);
