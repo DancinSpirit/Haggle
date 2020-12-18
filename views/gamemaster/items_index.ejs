@@ -22,7 +22,8 @@
         <ul>
             <% items.forEach(item => { %>
     
-                <li><%= item.name %> ///// $£ <%= item.pointValue %> </li>
+                <li><%= item.name %></li>
+                <li>Point Value: <%= item.pointValue %></li>
 
                 <form action="/gamemaster/items/<%= item._id %>?_method=DELETE" method="post">
 
