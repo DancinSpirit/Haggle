@@ -15,6 +15,7 @@ const router = express.Router();
 //index - GET - / - presentational - respond with all players
 
 router.get("/", async function (req, res) {
+    
    try {
        const allPlayers = await db.Player.find({});
 

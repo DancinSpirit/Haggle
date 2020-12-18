@@ -4,7 +4,6 @@ const methodOverride = require("method-override");
 
 /* Interal Modules */
 const db = require("./models");
-const ctrl = require("./controllers");
 const controllers = require("./controllers");
 
 /* Instanced Modules */
@@ -20,7 +19,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
 /* Controllers */
-
+app.use("/gamemaster", controllers.gamemaster);
 app.use("/players", controllers.players);
 
 

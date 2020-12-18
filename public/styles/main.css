@@ -29,7 +29,7 @@ nav{
     color: black; 
 }
 
-h1, h2, form, p, li, a, .buttons{
+h1, h2, form, p, li, a, .buttons, .Player{
     text-align: center;
     padding: 3px;
 }
