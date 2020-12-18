@@ -11,10 +11,28 @@
 
     <h1><%= player.name %></h1>
     
+    <h2>your items</h2>
     <ul>
         <% player.items.forEach(item => { %>
             
-            <li><%= player.item.name %></li>
+            <% console.log("1", item) %> 
+            <li><%= item.name %></li>
+        <% }) %>
+    </ul>
+
+    <h2>your rules</h2>
+    <ul>
+        <% player.rules.forEach(rule => { %>
+            
+            <li><%= player.rule.name %></li>
+        <% }) %>
+    </ul>
+
+    <ul>
+        <% rules.forEach(rule => { %>
+
+            <li>Rule #<%= rule.number %></li>
+            <li><%= rule.info %></li>
         <% }) %>
     </ul>
 
