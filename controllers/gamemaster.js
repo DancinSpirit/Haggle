@@ -36,7 +36,7 @@ router.get("/players/:id/items", async function (req, res) {
 router.get("/players/:id/rules", async function (req, res) {
     try {
         const id = req.params.id;
-        const foundPlayer = await await db.Player.findById(id).populate("rules");
+        const foundPlayer = await db.Player.findById(id).populate("rules");
         const allRules = await db.Rule.find({});
         const context = {player: foundPlayer, rules: allRules};
         res.render("gamemaster/players/rules", context);
@@ -74,7 +74,7 @@ router.post("/players/:id/items", async function (req, res){
 router.post("/players/:id/rules", async function (req, res){
     try{
         const id = req.params.id;
-        const foundRule = await db.Rule.findById(req.body.item);
+        const foundRule = await db.Rule.findById(req.body.rule);
         const foundPlayer = await db.Player.findById(id);
         foundPlayer.rules.push(foundRule._id);
         await foundPlayer.save();
