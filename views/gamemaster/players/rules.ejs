@@ -15,6 +15,15 @@
             <li><%= rule.info %></li>
         <% }) %>
     </ul>
+    <%let rulesLength = 0;%>
+    <% rules.forEach(rule => { %>
+        <%if(rule.isSecret){%>
+            <% rulesLength++ %>
+        <%}%>
+    <%})%>
+    <% if(rulesLength===0){%>
+        <p>There are no rules to add!</p>
+    <%} else{%>
     <form action="/gamemaster/players/<%=player._id%>/rules" method="POST">
         <select name="rule">
             <% let ruleExists = false; %>
@@ -35,5 +44,6 @@
         </select>
         <input type="submit" value="Add New Rule">
     </form>
+    <%}%>
 </body>
 </html>
