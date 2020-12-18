@@ -7,11 +7,10 @@
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
-    <%- include("../partial/playersnav") %> 
+    <%- include("../partials/playersnav") %>        
 
-
-    <h1><%= player.name %> </h1>
-
+    <h1><%= player.name %></h1>
+    
     <ul>
         <% player.items.forEach(item => { %>
             
