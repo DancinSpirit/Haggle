@@ -24,6 +24,11 @@
                 <li><%= item.name %> ///// $£ <%= item.pointValue %> </li>
 
                 <a href="gamemaster/items/<%= item._id %>">Edit</a>
+
+                <form action="/gamemaster/items/<%= item._id %>?_method=DELETE" method="post">
+
+                    <input type="submit" value="DELETE">
+                </form>
             
             <% }) %>
         </ul>

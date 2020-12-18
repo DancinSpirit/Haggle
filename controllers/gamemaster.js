@@ -57,6 +57,7 @@ router.post("/players", async function (req, res){
 })
 
 /* ITEMS ROUTE */
+//index
 router.get("/items", async function (req, res) {
     try {
 
@@ -68,7 +69,7 @@ router.get("/items", async function (req, res) {
     }
  
  })
-
+//create
  router.post("/items", async function (req, res) {
     try {
 
@@ -81,5 +82,19 @@ router.get("/items", async function (req, res) {
     }
  
  })
+ //delete
+ router.delete("/items/:id", async function (req, res) {
+    try {
+
+        const deletedItem = await db.Item.findByIdAndDelete(req.params.id);
+        console.log(deletedItem);
+        res.redirect("/gamemaster/items");
+ 
+    } catch (err) {
+        res.send(err);
+    }
+ 
+ })
+
 
 module.exports = router;

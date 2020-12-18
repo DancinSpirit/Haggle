@@ -32,13 +32,12 @@ router.get("/", async function (req, res) {
 router.get("/:id", async function (req, res) {
     try {
 
-        const foundPlayer = await db.Player.find(req.params.id);
-         res.render("players/show", {player: foundPlayer});
- 
+        const foundPlayer = await db.Player.findById(req.params.id);
+        return res.render("players/show", {player:foundPlayer});
     } catch (err) {
-        res.send(err);
+        return res.send(err);
     }
  
- })
+ });
 
 module.exports = router;
