@@ -20,20 +20,20 @@ console.log($selectedPlayer.val());
 
 /*===========================FUNCTIONS=========================*/
 
-const displayItemsMenu = function displayItemsMenu() {
+const correctDropdowns = function correctDropdowns() {
 
     console.log($selectedPlayer.find(":selected").text());
     const $curItems = $selectedPlayer.find(":selected").text();
 
-    const $allItems = $(".items");
-    console.log($allItems);
+    const $allDropdowns = $(".items, .rules");
+    console.log($allDropdowns);
 
-    for (let i = 0; i < $allItems.length; i++) {
-        if ($allItems.eq(i).hasClass($curItems)) {
-            console.log($allItems.eq(i));
-            $allItems.eq(i).css("display","inline");
+    for (let i = 0; i < $allDropdowns.length; i++) {
+        if ($allDropdowns.eq(i).hasClass($curItems)) {
+            console.log($allDropdowns.eq(i));
+            $allDropdowns.eq(i).css("display","block");
         } else {
-            $allItems.eq(i).css("display","none");
+            $allDropdowns.eq(i).css("display","none");
         }     
     }
     
@@ -47,7 +47,7 @@ const $selectedPlayer = $("select[name='player']");
 
 $selectedPlayer.on("change", (event) => { 
     
-    displayItemsMenu();
+    correctDropdowns();
     
 
 
