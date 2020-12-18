@@ -25,7 +25,7 @@ router.get("/players/:id/items", async function (req, res) {
         const id = req.params.id;
         const foundPlayer = await db.Player.findById(id);
         const allItems = await db.Item.find({});
-        const context = {info: {player: foundPlayer, items: allItems}};
+        const context = {player: foundPlayer, items: allItems};
         res.render("gamemaster/players/items", context);
     } catch (err){
         res.send(err);
@@ -38,7 +38,7 @@ router.get("/players/:id/rules", async function (req, res) {
         const id = req.params.id;
         const foundPlayer = await db.Player.findById(id);
         const allRules = await db.Rule.find({});
-        const context = {info: {player: foundPlayer, rules: allRules}};
+        const context = {player: foundPlayer, rules: allRules};
         res.render("gamemaster/players/rules", context);
     } catch (err){
         res.send(err);
@@ -51,6 +51,22 @@ router.post("/players", async function (req, res){
         await db.Player.create(req.body);
         const allPlayers = await db.Player.find({});
         return res.render("gamemaster/players", {players: allPlayers});
+    } catch(err){
+        return res.send(err);
+    }
+})
+
+/* Add an Item to Player */
+router.post("/players/:id/items", async function (req, res){
+    try{
+        const id = req.params.id;
+        const foundPlayer = await db.Player.findById(id);
+        const foundItem = await db.Item.findById(req.body.item)
+        foundPlayer.items.push(foundItem);
+        foundPlayer.save();
+        const allItems = await db.Item.find({});
+        const context = {player: foundPlayer, items: allItems};
+        return res.render("gamemaster/players/items", context);
     } catch(err){
         return res.send(err);
     }
