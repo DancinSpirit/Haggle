@@ -8,11 +8,11 @@
 </head>
 <body>
     <%- include("../../partials/nav") %>
-    <h1><%=.player.name %>'s Rules</h1>
+    <h1><%=player.name %>'s Rules</h1>
     <ul>
         <% player.rules.forEach(rule => { %>
-            <li>Rule <%= player.rule.number %></li>
-            <li><%= player.rule.info %></li>
+            <li>Rule <%= rule.number %></li>
+            <li><%= rule.info %></li>
         <% }) %>
     </ul>
     <form action="/gamemaster/players/<%=player._id%>/rules" method="POST">
