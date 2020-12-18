@@ -159,7 +159,7 @@ router.get("/rules", async function (req, res) {
             const createdRule = await db.Rule.create(req.body);
             res.redirect("/gamemaster/rules");
         }else {
-            const context = {description: "You tried to add a rule with a rule number that already exists!", redirect: "/gamemaster/rules"};
+            const context = {description: "You tried to add a rule with a rule number that already exists!", redirect: "/gamemaster/rules", button: "Rules Page"};
             return res.render("error",context);
         }
         
