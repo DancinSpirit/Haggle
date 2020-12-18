@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= player.name %>'s Rules</title>
+    <title><%= player.name %>'s Secret Rules</title>
     <link rel="stylesheet" href="/styles/main.css" />
 </head>
 <body>
     <%- include("../../partials/nav") %>
-    <h1><%=player.name %>'s Rules</h1>
+    <h1><%=player.name %>'s Secret Rules</h1>
     <ul>
         <% player.rules.forEach(rule => { %>
             <li>Rule <%= rule.number %></li>
