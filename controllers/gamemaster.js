@@ -70,6 +70,20 @@ router.post("/players/:id/items", async function (req, res){
         return res.send(err);
     }
 })
+/* Add a Rule to Player */
+router.post("/players/:id/rules", async function (req, res){
+    try{
+        const id = req.params.id;
+        const foundRule = await db.Rule.findById(req.body.item);
+        const foundPlayer = await db.Player.findById(id);
+        foundPlayer.rules.push(foundRule._id);
+        await foundPlayer.save();
+        console.log("foundPlayer", foundPlayer);
+        return res.redirect(`/gamemaster/players/${id}/rules`);
+    } catch(err){
+        return res.send(err);
+    }
+})
 
 /* ITEMS ROUTE */
 //index
