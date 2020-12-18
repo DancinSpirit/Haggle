@@ -175,4 +175,23 @@ router.get("/rules", async function (req, res) {
  })
 
 
+/* TRADE ROUTES */
+
+//index
+router.get("/trade", async function (req, res) {
+    try {
+
+        const allPlayers = await db.Player.find({}).populate("items").populate("rules");
+        console.log(allPlayers);
+        console.log(allPlayers[1].items);
+        //const allRules = await db.Rule.find({});
+         res.render("gamemaster/trade", {players: allPlayers});
+ 
+    } catch (err) {
+        res.send(err);
+    }
+ 
+ })
+
+
 module.exports = router;
