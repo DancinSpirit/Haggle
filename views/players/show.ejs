@@ -14,7 +14,22 @@
     <ul>
         <% player.items.forEach(item => { %>
             
-            <li><%= player.item.name %></li>
+            <li><%= item.name %></li>
+        <% }) %>
+    </ul>
+
+    <ul>
+        <% player.rules.forEach(rule => { %>
+            
+            <li><%= player.rule.name %></li>
+        <% }) %>
+    </ul>
+
+    <ul>
+        <% rules.forEach(rule => { %>
+
+            <li>Rule #<%= rule.number %></li>
+            <li><%= rule.info %></li>
         <% }) %>
     </ul>
 
