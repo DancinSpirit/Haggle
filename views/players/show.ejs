@@ -22,15 +22,7 @@
 
     <h2>your rules</h2>
     <ul>
-        <% player.rules.forEach(rule => { %>
-            
-            <li><%= player.rule.name %></li>
-        <% }) %>
-    </ul>
-
-    <ul>
         <% rules.forEach(rule => { %>
-
             <li>Rule #<%= rule.number %></li>
             <li><%= rule.info %></li>
         <% }) %>

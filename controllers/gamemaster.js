@@ -148,12 +148,21 @@ router.get("/rules", async function (req, res) {
             req.body.isSecret = false
             
         }
-
-        console.log(req.body);
-
-        const createdRule = await db.Rule.create(req.body);
-        console.log(createdRule);
-        res.redirect("/gamemaster/rules");
+        let ruleExists = false;
+        const allRules = await db.Rule.find({});
+        allRules.forEach(rule => {
+            if(req.body.number==rule.number){
+                ruleExists = true;
+            }    
+        });
+        if(!ruleExists){
+            const createdRule = await db.Rule.create(req.body);
+            res.redirect("/gamemaster/rules");
+        }else {
+            const context = {description: "You tried to add a rule with a rule number that already exists!", redirect: "/gamemaster/rules"};
+            return res.render("error",context);
+        }
+        
  
     } catch (err) {
         res.send(err);

@@ -42,7 +42,7 @@
     <h2>ADD RULE</h2>
     <form action="/gamemaster/rules" method="POST">
     
-        Rule Number: <input type="number" name="number" required placeholder="rule">
+        Rule Number: <input type="number" name="number" required value=<%= rules.length+1 %>>
         Info: <input type="text" name="info" required placeholder="Rule description">
         Secrecy: <input type="checkbox" name="isSecret">
 
