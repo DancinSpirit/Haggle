@@ -28,6 +28,10 @@ app.get("/", function(req, res){
     res.render("home");
 })
 
+app.get("*", function(req,res){
+    const context = {description:"Page Not Found!", redirect:"/", button: "Home Page"};
+    res.render("error",context);
+})
 /* Listener */
 app.listen(PORT, function(){
    console.log(`Live at http://localhost:${PORT}/`);

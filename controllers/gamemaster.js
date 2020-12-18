@@ -101,10 +101,20 @@ router.get("/items", async function (req, res) {
 //create
  router.post("/items", async function (req, res) {
     try {
-
-        const createdItem = await db.Item.create(req.body);
-        console.log(createdItem);
-        res.redirect("/gamemaster/items");
+        let itemExists = false;
+        const allItems = await db.Item.find({});
+        allItems.forEach(item => {
+            if(req.body.name==item.name){
+                itemExists = true;
+            }    
+        });
+        if(!itemExists){
+            const createdItem = await db.Item.create(req.body);
+            res.redirect("/gamemaster/items");
+        }else {
+            const context = {description: "You tried to add an item with an item name that already exists!", redirect: "/gamemaster/items", button: "Items Page"};
+            return res.render("error",context);
+        }
  
     } catch (err) {
         res.send(err);
@@ -148,12 +158,21 @@ router.get("/rules", async function (req, res) {
             req.body.isSecret = false
             
         }
-
-        console.log(req.body);
-
-        const createdRule = await db.Rule.create(req.body);
-        console.log(createdRule);
-        res.redirect("/gamemaster/rules");
+        let ruleExists = false;
+        const allRules = await db.Rule.find({});
+        allRules.forEach(rule => {
+            if(req.body.number==rule.number){
+                ruleExists = true;
+            }    
+        });
+        if(!ruleExists){
+            const createdRule = await db.Rule.create(req.body);
+            res.redirect("/gamemaster/rules");
+        }else {
+            const context = {description: "You tried to add a rule with a rule number that already exists!", redirect: "/gamemaster/rules", button: "Rules Page"};
+            return res.render("error",context);
+        }
+        
  
     } catch (err) {
         res.send(err);
