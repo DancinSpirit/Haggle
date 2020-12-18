@@ -10,8 +10,12 @@
     <h1>Welcome to Haggle!</h1>
     <h2>Are you a player or the gamemaster?</h2>
     <section class="buttons">
-        <button>Player</button>
-        <button>Gamemaster</button>
+        <form action="/players" method="GET">
+            <input type="submit" value="Player">
+        </form>
+        <form action="/gamemaster/players" method="GET">
+            <input type="submit" value="Game Master">
+        </form>
     </section>
 </body>
 </html>
