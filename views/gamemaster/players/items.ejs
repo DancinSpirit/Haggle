@@ -16,6 +16,9 @@
         <% }) %>
     </ul>
     
+    <% if(items.length===0){%>
+        <p>There are no items!</p>
+    <%} else{%>
     <form action="/gamemaster/players/<%=player._id%>/items" method="POST">
         <select name="item">
             <% items.forEach(item => { %>
@@ -24,5 +27,6 @@
         </select>
         <input type="submit" value="Add New Item">
     </form>
+    <%}%>
 </body>
 </html>

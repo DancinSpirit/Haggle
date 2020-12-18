@@ -15,6 +15,9 @@
             <li><%= rule.info %></li>
         <% }) %>
     </ul>
+    <% if(rules.length===0){%>
+        <p>There are no rules!</p>
+    <%} else{%>
     <form action="/gamemaster/players/<%=player._id%>/rules" method="POST">
         <select name="rule">
             <% let ruleExists = false; %>
@@ -35,5 +38,6 @@
         </select>
         <input type="submit" value="Add New Rule">
     </form>
+    <%}%>
 </body>
 </html>
