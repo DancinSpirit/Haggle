@@ -1,4 +1,5 @@
 module.exports = {
     players: require("./players"),
-    gamemaster: require("./gamemaster")
+    gamemaster: require("./gamemaster"),
+    auth: require("./auth")
 }

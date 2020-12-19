@@ -23,5 +23,6 @@ mongoose.connection.on("error", function(err){
 module.exports = {
     Player: require("./Player"),
     Rule: require("./Rule"),
-    Item: require("./Item")
+    Item: require("./Item"),
+    User: require("./User")
 }
