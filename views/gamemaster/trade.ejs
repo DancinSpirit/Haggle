@@ -15,7 +15,8 @@
     
         <form action="/gamemaster/trade" method="post">
             <section class= "trader">
-                <select class= trader name="traderName" >
+                <select class= "trader name" name="traderName" >
+                    <option value=""></option>
                     <% players.forEach(player => { %>
                         <option value="<%= player._id %>"><%= player.name %></option>
                     <% }) %>
@@ -24,12 +25,14 @@
                 <% players.forEach(player => { %>
 
                     <select class="<%= player.name %> items" name="traderItem">
+                        <option value=""></option>
                         <% player.items.forEach(item => { %>
                             <option value="<%= item._id %>"><%= item.name %></option>
                         <% }) %>
                     </select>
 
                     <select class="<%= player.name %> rules" name="traderRule">
+                        <option value=""></option>
                         <% player.rules.forEach(rule => { %>
                             <option value="<%= rule._id %>"><%= rule.number %></option>
                         <% }) %>
@@ -39,8 +42,9 @@
             </section>
     
 
-            <section class= tradee>
-                <select class= "tradee" name="tradeeName" >
+            <section class= "tradee">
+                <select class= "tradee name" name="tradeeName" >
+                    <option value=""></option>
                     <% players.forEach(player => { %>
                         <option value="<%= player._id %>"><%= player.name %></option>
                     <% }) %>
@@ -49,12 +53,14 @@
                 <% players.forEach(player => { %>
 
                     <select class="<%= player.name %> items" name="tradeeItem">
+                        <option value=""></option>
                         <% player.items.forEach(item => { %>
                             <option value="<%= item._id %>"><%= item.name %></option>
                         <% }) %>
                     </select>
 
                     <select class="<%= player.name %> rules" name="tradeeRule">
+                        <option value=""></option>
                         <% player.rules.forEach(rule => { %>
                             <option value="<%= rule._id %>"><%= rule.number %></option>
                         <% }) %>

@@ -20,31 +20,49 @@ console.log($selectedPlayer.val());
 
 /*===========================FUNCTIONS=========================*/
 
+const removeOnSibling = function removeOnSibiling($selectedTransactor) {//tranbalhando aqui tirando o igual da lista do lado
+
+    // const $siblingDropdown = $selectedTransactor.parent().parent().siblings("section").children("selecte.name");
+    const $siblingDropdown = $selectedTransactor.parent().parent().siblings("section").children("select.name");
+    const $siblingOptions = $siblingDropdown.children();
+    // console.log($siblingOptions);
+
+    for (let i = 0; i < $siblingOptions.length; i++) {
+        // console.log($selectedTransactor);
+        // console.log($siblingOptions.eq(i).text());
+        if ($siblingOptions.eq(i).text() === $selectedTransactor.text()) {
+            $siblingOptions.eq(i).css("display","none");
+            console.log("blocked");
+        }else{
+            $siblingOptions.eq(i).css("display","block");
+        };
+        
+    }
+
+}
+
 const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 
-    console.log($dropDown.attr("class"));
-    console.log($dropDown.hasClass("trader"));
+    const $chosenPlayer = $dropDown.children((isLoad ? "option:first-of-type" : ":selected"));
 
-    const $chosenPlayer = $dropDown.find((isLoad ? "option:first-of-type" : ":selected")).text();
-    console.log($chosenPlayer);
+    removeOnSibling($chosenPlayer);
+    // console.log($chosenPlayer);
 
     const $allDropdowns = $dropDown.siblings(".items, .rules");
     // console.log($allDropdowns);
 
     for (let i = 0; i < $allDropdowns.length; i++) {
         //console.log($allDropdowns.eq(i).attr("class"));
-        if ($allDropdowns.eq(i).hasClass($chosenPlayer)) {
-            // console.log("chosen");
-            // console.log($allDropdowns.eq(i));
+        if ($allDropdowns.eq(i).hasClass($chosenPlayer.text())) {
+
             $allDropdowns.eq(i).css("display","block");
             if ($dropDown.hasClass("trader")) {
                 ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","traderItems") : $allDropdowns.eq(i).attr("name","traderRules"));
-            } else {
+            } else {//if tradee
                 ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","tradeeItems") : $allDropdowns.eq(i).attr("name","tradeeRules"));
             }
             
         } else {
-            // console.log("not_chosen");
             $allDropdowns.eq(i).css("display","none");
             $allDropdowns.eq(i).attr("name","possible")
         }     
@@ -52,29 +70,13 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
     
 }
 
-const submitForms = function submitForms() {
-
-
-    const $allForms = $("form")
-
-    for (let i = 0; i < $allForms.length; i++) {
-        console.log($allForms.eq(i))
-        $allForms.eq(i).submit();
-        
-    }
-    
-    console.log("submited");
-
-
-}
-
 
 /*===========================EVENT LISTENERS=========================*/
 
-const $selectedTrader = $(".trader").find("select[name='traderName']");
+const $selectedTrader = $(".trader").children("select[name='traderName']");
 console.log($selectedTrader);
 
-const $selectedTradee = $(".tradee").find("select[name='tradeeName']");
+const $selectedTradee = $(".tradee").children("select[name='tradeeName']");
 console.log($selectedTradee);
 // console.log($selectedTrader.find(":selected").text());
 
