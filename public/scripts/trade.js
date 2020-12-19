@@ -20,36 +20,79 @@ console.log($selectedPlayer.val());
 
 /*===========================FUNCTIONS=========================*/
 
-const correctDropdowns = function correctDropdowns() {
+const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 
-    console.log($selectedPlayer.find(":selected").text());
-    const $curItems = $selectedPlayer.find(":selected").text();
+    // console.log(event.target);
 
-    const $allDropdowns = $(".items, .rules");
+    const $chosenPlayer = $dropDown.find((isLoad ? "option:first-of-type" : ":selected")).text();
+    console.log($chosenPlayer);
+
+    const $allDropdowns = $dropDown.siblings(".items, .rules");
     console.log($allDropdowns);
 
     for (let i = 0; i < $allDropdowns.length; i++) {
-        if ($allDropdowns.eq(i).hasClass($curItems)) {
+        //console.log($allDropdowns.eq(i).attr("class"));
+        if ($allDropdowns.eq(i).hasClass($chosenPlayer)) {
+            // console.log("chosen");
             console.log($allDropdowns.eq(i));
             $allDropdowns.eq(i).css("display","block");
         } else {
+            // console.log("not_chosen");
             $allDropdowns.eq(i).css("display","none");
         }     
     }
     
 }
 
+/* const submitForms = function submitForms() {
 
+
+    const $allForms = $("form")
+
+    for (let i = 0; i < $allForms.length; i++) {
+        $allForms.eq(i).submit();
+        
+    }
+    
+    console.log("submited");
+
+
+}
+ */
 
 /*===========================EVENT LISTENERS=========================*/
 
-const $selectedPlayer = $("select[name='player']");
+const $selectedTrader = $(".trader").find("select[name='player']");
+console.log($selectedTrader);
 
-$selectedPlayer.on("change", (event) => { 
+const $selectedTradee = $(".tradee").find("select[name='player']");
+console.log($selectedTradee);
+// console.log($selectedTrader.find(":selected").text());
+
+$selectedTrader.on("click", null, (event) => { 
     
-    correctDropdowns();
+    // event.stopPropagation();
+    console.log(event);
+    console.log("clicked");
     
+});
 
+$selectedTrader.on("change", (event) => { 
 
+    correctDropdowns($(event.target), false);
 
 });
+
+$selectedTradee.on("change", (event) => { 
+    
+    correctDropdowns($(event.target), false);
+    
+
+});
+
+
+
+/*===========================ON LOAD=========================*/
+
+correctDropdowns($selectedTrader, true);
+correctDropdowns($selectedTradee, true);

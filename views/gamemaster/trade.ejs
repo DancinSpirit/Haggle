@@ -8,6 +8,7 @@
     <title>TRADE!</title>
 </head>
 <body>
+    <%- include("../partials/nav") %>
 
     <h1>GET READY TO TRADE!</h1>
 
@@ -38,6 +39,36 @@
 
         </form>
     </section>
+
+    <section class= tradee>
+        <form action="/gamemaster/players" method="post">
+            
+            <select name="player" >
+                <% players.forEach(player => { %>
+                    <option value="<%= player._id %>"><%= player.name %></option>
+                <% }) %>
+            </select>
+
+            <% players.forEach(player => { %>
+
+                <select class="<%= player.name %> items" name="item">
+                    <% player.items.forEach(item => { %>
+                        <option value="<%= item._id %>"><%= item.name %></option>
+                    <% }) %>
+                </select>
+
+                <select class="<%= player.name %> rules" name="rule">
+                    <% player.rules.forEach(rule => { %>
+                        <option value="<%= rule._id %>"><%= rule.number %></option>
+                    <% }) %>
+                </select>
+
+            <% }) %>
+
+        </form>
+    </section>
     
+    <input type="button" value="Click Me!" onclick="submitForms()" />
+
 </body>
 </html>
