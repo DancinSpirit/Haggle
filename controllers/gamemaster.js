@@ -212,5 +212,14 @@ router.get("/trade", async function (req, res) {
  
  })
 
+ router.post("/trade", async function (req, res) {
+     try {
+         res.send(req.body);
+     } catch (error) {
+         res.send(error);
+     }
+     
+ })
+
 
 module.exports = router;

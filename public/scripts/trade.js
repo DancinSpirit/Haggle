@@ -22,34 +22,43 @@ console.log($selectedPlayer.val());
 
 const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 
-    // console.log(event.target);
+    console.log($dropDown.attr("class"));
+    console.log($dropDown.hasClass("trader"));
 
     const $chosenPlayer = $dropDown.find((isLoad ? "option:first-of-type" : ":selected")).text();
     console.log($chosenPlayer);
 
     const $allDropdowns = $dropDown.siblings(".items, .rules");
-    console.log($allDropdowns);
+    // console.log($allDropdowns);
 
     for (let i = 0; i < $allDropdowns.length; i++) {
         //console.log($allDropdowns.eq(i).attr("class"));
         if ($allDropdowns.eq(i).hasClass($chosenPlayer)) {
             // console.log("chosen");
-            console.log($allDropdowns.eq(i));
+            // console.log($allDropdowns.eq(i));
             $allDropdowns.eq(i).css("display","block");
+            if ($dropDown.hasClass("trader")) {
+                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","traderItems") : $allDropdowns.eq(i).attr("name","traderRules"));
+            } else {
+                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","tradeeItems") : $allDropdowns.eq(i).attr("name","tradeeRules"));
+            }
+            
         } else {
             // console.log("not_chosen");
             $allDropdowns.eq(i).css("display","none");
+            $allDropdowns.eq(i).attr("name","possible")
         }     
     }
     
 }
 
-/* const submitForms = function submitForms() {
+const submitForms = function submitForms() {
 
 
     const $allForms = $("form")
 
     for (let i = 0; i < $allForms.length; i++) {
+        console.log($allForms.eq(i))
         $allForms.eq(i).submit();
         
     }
@@ -58,14 +67,14 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 
 
 }
- */
+
 
 /*===========================EVENT LISTENERS=========================*/
 
-const $selectedTrader = $(".trader").find("select[name='player']");
+const $selectedTrader = $(".trader").find("select[name='traderName']");
 console.log($selectedTrader);
 
-const $selectedTradee = $(".tradee").find("select[name='player']");
+const $selectedTradee = $(".tradee").find("select[name='tradeeName']");
 console.log($selectedTradee);
 // console.log($selectedTrader.find(":selected").text());
 
