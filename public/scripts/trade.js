@@ -74,6 +74,13 @@ const correctQuantity = function correctQuantity($dropDown) {
 
     const $chosenItem = $dropDown.children(":selected");
     console.log($chosenItem);
+    if($chosenItem.text() === "") {
+        const variableName = `${$chosenItem.parent().parent("section").attr("class")}Quantity`;
+
+        console.log($(`select[name='${variableName}']`));
+        return $(`select[name='${variableName}']`).remove();
+    }
+    console.log($chosenItem);
 
     const curQuantity = $chosenItem.attr("quantity");
     console.log(curQuantity);
@@ -99,17 +106,17 @@ const correctQuantity = function correctQuantity($dropDown) {
 
 /*===========================EVENT LISTENERS=========================*/
 
-const $selectedTrader = $(".trader").children("select[name='traderName']");
-console.log($selectedTrader);
-
-const $selectedTradee = $(".tradee").children("select[name='tradeeName']");
-console.log($selectedTradee);
-console.log($selectedTrader.find(":selected").text());
-
-// const $selectedTrader = $("section").children("select.name");
+// const $selectedTrader = $(".trader").children("select[name='traderName']");
 // console.log($selectedTrader);
 
-$selectedTrader.on("click", null, (event) => { 
+// const $selectedTradee = $(".tradee").children("select[name='tradeeName']");
+// console.log($selectedTradee);
+// console.log($selectedTrader.find(":selected").text());
+
+const $selectedTraders = $("section").children("select.name");
+console.log($selectedTraders);
+
+$selectedTraders.on("click", null, (event) => { 
     
     // event.stopPropagation();
     console.log(event);
@@ -117,18 +124,18 @@ $selectedTrader.on("click", null, (event) => {
     
 });
 
-$selectedTrader.on("change", (event) => { 
+$selectedTraders.on("change", (event) => { 
 
     correctDropdowns($(event.target), false);
 
 });
 
-$selectedTradee.on("change", (event) => { 
+// $selectedTradee.on("change", (event) => { 
     
-    correctDropdowns($(event.target), false);
+//     correctDropdowns($(event.target), false);
     
 
-});
+// });
 
 const $selectedItems = $("section").children("select.items");
 console.log($selectedItems);
@@ -141,5 +148,5 @@ $selectedItems.on("change", (event) => {
 
 /*===========================ON LOAD=========================*/
 
-correctDropdowns($selectedTrader, true);
-correctDropdowns($selectedTradee, true);
+correctDropdowns($selectedTraders, true);
+// correctDropdowns($selectedTradee, true);
