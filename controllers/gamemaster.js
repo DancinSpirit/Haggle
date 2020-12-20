@@ -7,6 +7,17 @@ const db = require("../models");
 /* Instanced Modules */
 const router = express.Router();
 
+
+/*==============================FUNCTIONS==============================*/
+
+const tradeProperties = function tradeProperties(traderOne, traderTwo) {
+    
+
+
+}
+
+/*==============================ROUTES==============================*/
+
 //base route /gamemaster
 
 /* Show Gamemaster Player Screen */
@@ -23,7 +34,7 @@ router.get("/players", async function (req, res) {
 router.get("/players/:id/items", async function (req, res) {
     try {
         const id = req.params.id;
-        const foundPlayer = await db.Player.findById(id).populate("items");
+        const foundPlayer = await db.Player.findById(id).populate("items.item");
         const allItems = await db.Item.find({});
         const context = {player: foundPlayer, items: allItems};
         res.render("gamemaster/players/items", context);
@@ -62,7 +73,7 @@ router.post("/players/:id/items", async function (req, res){
         const id = req.params.id;
         const foundItem = await db.Item.findById(req.body.item);
         const foundPlayer = await db.Player.findById(id);
-        foundPlayer.items.push(foundItem._id);
+        foundPlayer.items.push({item: foundItem._id, quantity: 0});
         await foundPlayer.save();
         console.log("foundPlayer", foundPlayer);
         return res.redirect(`/gamemaster/players/${id}/items`);
@@ -148,6 +159,7 @@ router.get("/rules", async function (req, res) {
     }
  
  })
+
 //create
  router.post("/rules", async function (req, res) {
     try {
@@ -214,8 +226,32 @@ router.get("/trade", async function (req, res) {
 
  router.post("/trade", async function (req, res) {
      try {
+        console.log(req.body.traderName)
+        const trader = await db.Player.findById(req.body.traderName);
+        console.log("trader",trader);
+
+        console.log(req.body.tradeeName)
+        const tradee = await db.Player.findById(req.body.tradeeName);
+        // const tradee = await db.Player.findByIdAndUpdate(req.body.tradeeName, {$pull: {items: req.body.tradeeItems}}, {new: true});
+
+
+
+
+        console.log("tradee",tradee);
+        console.log("items",tradee.items);
+        // console.log("items",tradee.items.pop())
+        // console.log("items",tradee.items);
+
+        // const tradeeItems = await tradee.items.find({req.body.tradeeItems});
+        // console.log("tradee",tradeeItems);
+
+
+        //tradeProperties(trader,  tradee);
+        //tradeProperties(tradee);
+
          res.send(req.body);
      } catch (error) {
+         console.log(error);
          res.send(error);
      }
      
