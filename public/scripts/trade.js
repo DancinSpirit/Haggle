@@ -57,9 +57,9 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 
             $allDropdowns.eq(i).css("display","block");
             if ($dropDown.hasClass("trader")) {
-                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","traderItems") : $allDropdowns.eq(i).attr("name","traderRules"));
+                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","traderItem") : $allDropdowns.eq(i).attr("name","traderRule"));
             } else {//if tradee
-                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","tradeeItems") : $allDropdowns.eq(i).attr("name","tradeeRules"));
+                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","tradeeItem") : $allDropdowns.eq(i).attr("name","tradeeRule"));
             }
             
         } else {
