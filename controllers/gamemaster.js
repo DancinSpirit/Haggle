@@ -73,7 +73,7 @@ router.post("/players/:id/items", async function (req, res){
         const id = req.params.id;
         const foundItem = await db.Item.findById(req.body.item);
         const foundPlayer = await db.Player.findById(id);
-        foundPlayer.items.push({item: foundItem._id, quantity: 0});
+        foundPlayer.items.push({item: foundItem._id, quantity: req.body.quantity});
         await foundPlayer.save();
         console.log("foundPlayer", foundPlayer);
         return res.redirect(`/gamemaster/players/${id}/items`);
