@@ -27,7 +27,7 @@
                     <select class="<%= player.name %> items" name="traderItem">
                         <option value=""></option>
                         <% player.items.forEach(item => { %>
-                            <option value="<%= item._id %>"><%= item.name %></option>
+                            <option value="<%= item.item._id %>" quantity="<%= item.quantity %>"><%= item.item.name %></option>
                         <% }) %>
                     </select>
 
@@ -55,7 +55,7 @@
                     <select class="<%= player.name %> items" name="tradeeItem">
                         <option value=""></option>
                         <% player.items.forEach(item => { %>
-                            <option value="<%= item._id %>"><%= item.name %></option>
+                            <option value="<%= item.item._id %>" quantity="<%= item.quantity %>"><%= item.item.name %></option>
                         <% }) %>
                     </select>
 
@@ -72,8 +72,6 @@
             </section>
         </form>
     
-    
-    <!-- <input type="button" value="Click Me!" onclick="submitForms()" /> -->
 
 </body>
 </html>

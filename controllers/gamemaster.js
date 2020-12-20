@@ -228,9 +228,9 @@ router.get("/rules", async function (req, res) {
 router.get("/trade", async function (req, res) {
     try {
 
-        const allPlayers = await db.Player.find({}).populate("items").populate("rules");
-        console.log(allPlayers);
-        console.log(allPlayers[1].items);
+        const allPlayers = await db.Player.find({}).populate("items.item").populate("rules");
+        // console.log(allPlayers);
+        // console.log(allPlayers[1].items);
         //const allRules = await db.Rule.find({});
          res.render("gamemaster/trade", {players: allPlayers});
  
@@ -242,19 +242,19 @@ router.get("/trade", async function (req, res) {
 
  router.post("/trade", async function (req, res) {
      try {
-        console.log(req.body.traderName)
+        // console.log(req.body.traderName)
         const trader = await db.Player.findById(req.body.traderName);
         console.log("trader",trader);
 
-        console.log(req.body.tradeeName)
+        // console.log(req.body.tradeeName)
         const tradee = await db.Player.findById(req.body.tradeeName);
         // const tradee = await db.Player.findByIdAndUpdate(req.body.tradeeName, {$pull: {items: req.body.tradeeItems}}, {new: true});
 
 
 
 
-        console.log("tradee",tradee);
-        console.log("items",tradee.items);
+        // console.log("tradee",tradee);
+        // console.log("items",tradee.items);
         // console.log("items",tradee.items.pop())
         // console.log("items",tradee.items);
 

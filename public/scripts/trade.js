@@ -70,6 +70,32 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
     
 }
 
+const correctQuantity = function correctQuantity($dropDown) {
+
+    const $chosenItem = $dropDown.children(":selected");
+    console.log($chosenItem);
+
+    const curQuantity = $chosenItem.attr("quantity");
+    console.log(curQuantity);
+
+    let options = ""
+
+    for (let i = 1; i <= curQuantity; i++) {
+        options += `<option value="${i}">${i}</option>`;
+        
+    }
+    const variableName = `${$chosenItem.parent().parent("section").attr("class")}Quantity`;
+
+    console.log($(`select[name='${variableName}']`));
+    $(`select[name='${variableName}']`).remove();
+
+    const $quantityDropdown = $(`<select name="${variableName}">
+                                    ${options}
+                                </select>`)
+
+
+    $chosenItem.parent().after($quantityDropdown);
+}
 
 /*===========================EVENT LISTENERS=========================*/
 
@@ -78,7 +104,10 @@ console.log($selectedTrader);
 
 const $selectedTradee = $(".tradee").children("select[name='tradeeName']");
 console.log($selectedTradee);
-// console.log($selectedTrader.find(":selected").text());
+console.log($selectedTrader.find(":selected").text());
+
+// const $selectedTrader = $("section").children("select.name");
+// console.log($selectedTrader);
 
 $selectedTrader.on("click", null, (event) => { 
     
@@ -101,7 +130,14 @@ $selectedTradee.on("change", (event) => {
 
 });
 
+const $selectedItems = $("section").children("select.items");
+console.log($selectedItems);
 
+$selectedItems.on("change", (event) => { 
+
+    correctQuantity($(event.target));
+
+});
 
 /*===========================ON LOAD=========================*/
 
