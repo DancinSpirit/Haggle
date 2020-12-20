@@ -71,13 +71,29 @@ router.post("/players", async function (req, res){
 router.post("/players/:id/items", async function (req, res){
     try{
         const id = req.params.id;
-        const foundItem = await db.Item.findById(req.body.item);
         const foundPlayer = await db.Player.findById(id);
-        foundPlayer.items.push({item: foundItem._id, quantity: req.body.quantity});
-        await foundPlayer.save();
-        console.log("foundPlayer", foundPlayer);
+
+        //checks if player already has item// if yes returns object which is truthy//else it returns undefined
+        const hasItem = foundPlayer.items.find((item) => {console.log("item",item.item); return item.item.toString() === req.body.item}) 
+
+        if (hasItem) {
+            console.log("has item");
+            //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
+            const updated = await db.Player.updateOne({ _id: id, "items.item": req.body.item}, {$inc: {"items.$.quantity": parseInt(req.body.quantity)}}, {new:true});
+            console.log("updated", updated)
+            
+        } else {
+            console.log("does not have item");
+            const foundItem = await db.Item.findById(req.body.item);
+            foundPlayer.items.push({item: foundItem._id, quantity: req.body.quantity});
+            await foundPlayer.save();
+        }
+
+        const foundagainPlayer = await db.Player.findById(id);
+        console.log("foundPlayer", foundagainPlayer);
         return res.redirect(`/gamemaster/players/${id}/items`);
     } catch(err){
+        console.log(err);
         return res.send(err);
     }
 })

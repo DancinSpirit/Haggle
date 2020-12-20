@@ -12,7 +12,8 @@
     <ul>
         <% player.items.forEach(item => { %>
             <%console.log("1", item);%>
-            <%console.log("1",item.quantity);%>
+            <%console.log("2",item.quantity);%>
+            <%console.log("3",item.item);%>
             <li><%= item.item.name %>//////<%= item.quantity %></li>
         <% }) %>
     </ul>
