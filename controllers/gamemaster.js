@@ -248,8 +248,36 @@ router.get("/trade", async function (req, res) {
 
         // console.log(req.body.tradeeName)
         const tradee = await db.Player.findById(req.body.tradeeName);
-        // const tradee = await db.Player.findByIdAndUpdate(req.body.tradeeName, {$pull: {items: req.body.tradeeItems}}, {new: true});
+        console.log("tradee",tradee);
 
+        //trader give items to tradee
+        if (req.body.traderItem !== ""){
+            console.log("item is not empty");
+            console.log(req.body.traderItem);
+            const hasItem = tradee.items.find((item) => {console.log("item",item.item); return item.item.toString() === req.body.traderItem}) 
+
+            if (hasItem) {
+                console.log("has item");
+                //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
+                const updated = await db.Player.updateOne({ _id: req.body.tradeeName, "items.item": req.body.traderItem}, {$inc: {"items.$.quantity": parseInt(req.body.traderQuantity)}});
+                console.log("updated", updated)
+                //removes from trader
+                await db.Player.updateOne({ _id: req.body.traderName, "items.item": req.body.traderItem}, {$inc: {"items.$.quantity": -parseInt(req.body.traderQuantity)}})
+
+            } else {
+                console.log("does not have item");
+                const foundItem = await db.Item.findById(req.body.traderItem);
+                tradee.items.push({item: foundItem._id, quantity: req.body.traderQuantity});
+                await tradee.save();
+            }
+        }
+        //trader gives rules to tradee
+        /* if(req.body.traderRule !== ""){
+
+            tradee.rules.push(req.body.traderRule);
+            await tradee.save();
+        }
+ */
 
 
 
@@ -265,7 +293,8 @@ router.get("/trade", async function (req, res) {
         //tradeProperties(trader,  tradee);
         //tradeProperties(tradee);
 
-         res.send(req.body);
+         res.send({"trader":trader, "tradee":tradee});
+        //res.status(status).send(trader, tradee);
      } catch (error) {
          console.log(error);
          res.send(error);
