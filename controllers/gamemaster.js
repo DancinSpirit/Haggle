@@ -270,10 +270,6 @@ router.get("/trade", async function (req, res) {
             const updated = await db.Player.findByIdAndUpdate( req.body.tradeeName, {$push: {rules: req.body.traderRule}}, {new: true});
             console.log("updated", updated);
 
-            //removes rules from trader
-            const deleted = await db.Player.findByIdAndUpdate( req.body.traderName, {$pull: {rules: req.body.traderRule}}, {new: true});
-            console.log("deleted", deleted);
-
         }
 
         // console.log(req.body.traderName)
