@@ -16,12 +16,17 @@
         <% player.items.forEach(item => { %>
             
             <% console.log("1", item) %> 
-            <li><%= item.name %></li>
+            <li><%= item.item.name %> X <%= item.quantity %> </li>
         <% }) %>
     </ul>
 
     <h2>your rules</h2>
     <ul>
+        <% player.rules.forEach(rule => { %>
+            <li>Rule #<%= rule.number %></li>
+            <li><%= rule.info %></li>
+        <% }) %>
+
         <% rules.forEach(rule => { %>
             <li>Rule #<%= rule.number %></li>
             <li><%= rule.info %></li>

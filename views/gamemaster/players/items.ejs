@@ -11,8 +11,10 @@
     <h1><%= player.name %>'s Items</h1>
     <ul>
         <% player.items.forEach(item => { %>
-            <%console.log("1",item.name);%>
-            <li><%= item.name %></li>
+            <%console.log("1", item);%>
+            <%console.log("2",item.quantity);%>
+            <%console.log("3",item.item);%>
+            <li><%= item.item.name %>//////<%= item.quantity %></li>
         <% }) %>
     </ul>
     
@@ -25,6 +27,7 @@
                 <option value="<%= item._id %>"><%=item.name%></option> 
             <% }) %>
         </select>
+        Qt. <input type="number" name="quantity" required>
         <input type="submit" value="Add New Item">
     </form>
     <%}%>
