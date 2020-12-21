@@ -13,9 +13,9 @@
     <h1>GET READY TO TRADE!</h1>
 
     
-        <form action="/gamemaster/trade" method="post">
+        <form action="/gamemaster/trade?_method=PUT" method="post">
             <section class= "trader">
-                <select class= "trader name" name="traderName" >
+                <select class= "trader name" name="traderName" required >
                     <option value=""></option>
                     <% players.forEach(player => { %>
                         <option value="<%= player._id %>"><%= player.name %></option>
@@ -43,7 +43,7 @@
     
 
             <section class= "tradee">
-                <select class= "tradee name" name="tradeeName" >
+                <select class= "tradee name" name="tradeeName" required>
                     <option value=""></option>
                     <% players.forEach(player => { %>
                         <option value="<%= player._id %>"><%= player.name %></option>
