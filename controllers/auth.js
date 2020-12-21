@@ -41,7 +41,15 @@ router.post("/register", async function(req,res){
 })
 
 router.get("/login", function(req,res){
+    if(!req.session.currentUser){
     res.render("auth/login");
+    } else{
+        if(req.session.currentUser.gamemaster)
+        res.redirect("/gamemaster/players");
+    else
+        res.redirect(`/players/${req.session.currentUser.player}`)
+    }
+
 });
 
 router.post("/login", async function(req,res){

@@ -39,17 +39,19 @@ app.use(function(req,res,next){
     next();
 })
 
-/* Check if Already Signed In */
-signinCheck = function(req,res,next){
-    if(!req.session.currentUser){
-        next();
-    } else {
-        if(req.session.currentUser.gamemaster)
-            res.redirect("/gamemaster/players");
-        else
-            res.redirect(`/players/${req.session.currentUser.player}`)
+/* Updates Player Scores */
+app.use(async function(req,res,next){
+    try{
+    const allPlayers = await db.Player.find({});
+    allPlayers.forEach(player => {
+        player.updatePoints();
+    });
+    next();
+    } catch(err){
+        res.render(err);
     }
-}
+});
+
 /* Check if Not Signed In */
 authRequired = function(req,res,next){
     if(req.session.currentUser){
@@ -76,7 +78,7 @@ playerRequired = function(req,res,next){
 }
 
 /* Controllers */
-app.use("/gamemaster", authRequired, gamemasterRequired, controllers.gamemaster);
+app.use("/gamemaster", authRequired, controllers.gamemaster);
 app.use("/players", authRequired, playerRequired, controllers.players);
 
 /* Home Route */
@@ -91,7 +93,7 @@ app.get("/logout", async function(req,res){
 });
 
 /* Auth Controller */
-app.use("/", signinCheck, controllers.auth);
+app.use("/", controllers.auth);
 
 app.get("*", function(req,res){
     const context = {description:"Page Not Found!", redirect:"/", button: "Home Page"};
