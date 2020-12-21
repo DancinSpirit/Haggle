@@ -20,6 +20,23 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
+/* Check if Signed In */
+authRequired = function(req,res,next){
+    if(req.session.currentUser){
+      next();
+    } else {
+      res.redirect("/login");
+    }
+}
+/* Check if Gamemaster */
+gamemasterRequired = function(req,res,next){
+    if(req.session.currentUser.gamemaster){
+        next();
+    } else {
+        res.redirect("/login");
+    }  
+}
+
 /* Session */
 app.use(session({
     store: new MongoStore({
@@ -34,8 +51,8 @@ app.use(session({
 }));
 
 /* Controllers */
-app.use("/gamemaster", controllers.gamemaster);
-app.use("/players", controllers.players);
+app.use("/gamemaster", authRequired, gamemasterRequired, controllers.gamemaster);
+app.use("/players", authRequired, controllers.players);
 app.use("/", controllers.auth);
 
 /* Home Route */

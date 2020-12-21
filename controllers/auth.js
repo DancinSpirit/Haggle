@@ -31,7 +31,6 @@ router.post("/register", async function(req,res){
         else{
             req.body.gamemaster=false;
             const newPlayer = await db.Player.create({name: req.body.username});
-            console.log(newPlayer);
             req.body.player=newPlayer._id;
         }
         const newUser = await db.User.create(req.body);
@@ -51,11 +50,11 @@ router.post("/login", async function(req,res){
         if(!foundUser) return res.redirect("/register");
         const match = await bcrypt.compare(req.body.password, foundUser.password);
         if(!match) return res.send("Username or Password Invalid");
-
         req.session.currentUser = {
             id: foundUser._id,
             username: foundUser.username,
-            gamemaster: foundUser.gamemaster
+            gamemaster: foundUser.gamemaster,
+            player: foundUser.player
         }
         if(foundUser.gamemaster)
         res.redirect("/gamemaster/players/")
