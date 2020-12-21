@@ -33,7 +33,7 @@ router.get("/:id", async function (req, res) {
     try {
         const publicRules = await db.Rule.find({isSecret: false});
         console.log(publicRules);
-        const foundPlayer = await db.Player.findById(req.params.id).populate("rules").populate("items");
+        const foundPlayer = await db.Player.findById(req.params.id).populate("rules").populate("items.item");
         
         return res.render("players/show", {player:foundPlayer, rules:publicRules});
     } catch (err) {
