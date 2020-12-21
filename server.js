@@ -20,6 +20,25 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
+/* Session */
+app.use(session({
+    store: new MongoStore({
+        url: "mongodb://localhost:27017/haggle"
+    }),
+    secret: "Shhhhh it's secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 * 2
+    }  
+}));
+
+/* Store Data in Session */
+app.use(function(req,res,next){
+    app.locals.user =  req.session.currentUser;
+    next();
+})
+
 /* Check if Signed In */
 authRequired = function(req,res,next){
     if(req.session.currentUser){
@@ -36,19 +55,6 @@ gamemasterRequired = function(req,res,next){
         res.redirect("/login");
     }  
 }
-
-/* Session */
-app.use(session({
-    store: new MongoStore({
-        url: "mongodb://localhost:27017/haggle"
-    }),
-    secret: "Shhhhh it's secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 7 * 2
-    }  
-}));
 
 /* Controllers */
 app.use("/gamemaster", authRequired, gamemasterRequired, controllers.gamemaster);
