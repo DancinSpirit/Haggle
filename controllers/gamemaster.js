@@ -273,9 +273,12 @@ router.get("/trade", async function (req, res) {
                 console.log("updated", updated)
             } else {
                 console.log("does not have item");
-                const foundItem = await db.Item.findById(req.body.traderItem);
-                tradee.items.push({item: foundItem._id, quantity: req.body.traderQuantity});
-                await tradee.save();
+                // const foundItem = await db.Item.findById(req.body.traderItem);
+                // tradee.items.push({item: req.body.traderItem, quantity: req.body.traderQuantity});
+                // await tradee.save();
+
+                const updated = await db.Player.findByIdAndUpdate( req.body.tradeeName, {$push: {items: {item: req.body.traderItem, quantity: req.body.traderQuantity}}}, {new: true});
+                console.log("updated", updated)
             }
             //removes items from trader
             const isTotal = trader.items.find((item) => { return item.quantity === parseInt(req.body.traderQuantity)});
@@ -306,7 +309,7 @@ router.get("/trade", async function (req, res) {
         tradee = await db.Player.findById(req.body.tradeeName);
         console.log("tradee",tradee);
 
-        //trader give items to tradee
+        //tradee give items to trader
         if (req.body.tradeeItem !== ""){
             console.log("item is not empty");
             console.log(req.body.tradeeItem);
@@ -319,9 +322,12 @@ router.get("/trade", async function (req, res) {
                 console.log("updated", updated)
             } else {
                 console.log("does not have item");
-                const foundItem = await db.Item.findById(req.body.tradeeItem);
-                trader.items.push({item: foundItem._id, quantity: req.body.tradeeQuantity});//TODO change to findbyidandupdate
-                await trader.save();
+                // const foundItem = await db.Item.findById(req.body.tradeeItem);
+                // trader.items.push({item: req.body.tradeeItem, quantity: req.body.tradeeQuantity});//TODO change to findbyidandupdate
+                // await trader.save();
+
+                const updated = await db.Player.findByIdAndUpdate( req.body.traderName, {$push: {items: {item: req.body.tradeeItem, quantity: req.body.tradeeQuantity}}}, {new: true});
+                console.log("updated", updated)
             }
             //removes items from trader
             const isTotal = tradee.items.find((item) => { return item.quantity === parseInt(req.body.tradeeQuantity)});
@@ -332,7 +338,7 @@ router.get("/trade", async function (req, res) {
                 await db.Player.updateOne({ _id: req.body.tradeeName, "items.item": req.body.tradeeItem}, {$inc: {"items.$.quantity": -parseInt(req.body.tradeeQuantity)}});
             }
         }
-        //trader gives rules to tradee
+        //tradee gives rules to trader
         if(req.body.tradeeRule !== ""){
 
             const updated = await db.Player.findByIdAndUpdate( req.body.traderName, {$push: {rules: req.body.tradeeRule}}, {new: true});
