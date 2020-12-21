@@ -267,7 +267,7 @@ router.get("/trade", async function (req, res) {
                 tradee.items.push({item: foundItem._id, quantity: req.body.traderQuantity});
                 await tradee.save();
             }
-            //removes from trader
+            //removes items from trader
             const isTotal = trader.items.find((item) => { return item.quantity === parseInt(req.body.traderQuantity)});
             if(isTotal) {
                 const deleted = await db.Player.findByIdAndUpdate( req.body.traderName, {$pull: {items: {item: req.body.traderItem}}}, {new: true});
@@ -277,26 +277,20 @@ router.get("/trade", async function (req, res) {
             }
         }
         //trader gives rules to tradee
-        /* if(req.body.traderRule !== ""){
+        if(req.body.traderRule !== ""){
 
-            tradee.rules.push(req.body.traderRule);
-            await tradee.save();
+            const updated = await db.Player.findByIdAndUpdate( req.body.tradeeName, {$push: {rules: req.body.traderRule}}, {new: true});
+            console.log("updated", updated);
+
+            //removes rules from trader
+            const deleted = await db.Player.findByIdAndUpdate( req.body.traderName, {$pull: {rules: req.body.traderRule}}, {new: true});
+            console.log("deleted", deleted);
+
         }
- */
 
 
 
-        // console.log("tradee",tradee);
-        // console.log("items",tradee.items);
-        // console.log("items",tradee.items.pop())
-        // console.log("items",tradee.items);
 
-        // const tradeeItems = await tradee.items.find({req.body.tradeeItems});
-        // console.log("tradee",tradeeItems);
-
-
-        //tradeProperties(trader,  tradee);
-        //tradeProperties(tradee);
 
          res.send({"trader":trader, "tradee":tradee});
         //res.status(status).send(trader, tradee);
