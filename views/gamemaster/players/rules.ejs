@@ -16,16 +16,25 @@
         <% }) %>
     </ul>
     <%let rulesLength = 0;%>
+    <%let ruleExists = false; %>
     <% rules.forEach(rule => { %>
         <%if(rule.isSecret){%>
+            <% player.rules.forEach(playerRule =>{%>
+                <% if(rule.number==playerRule.number){%>
+                    <% ruleExists = true;%>
+                <%}%>
+            <% }) %>
+            <% if(!ruleExists){ %>
             <% rulesLength++ %>
+            <%}%>
+            <%ruleExists = false;%>
         <%}%>
     <%})%>
     <% if(rulesLength===0){%>
         <p>There are no rules to add!</p>
     <%} else{%>
     <form action="/gamemaster/players/<%=player._id%>/rules" method="POST">
-        <select name="rule">
+        <select name="rule" id="rule">
             <% let ruleExists = false; %>
             <% rules.forEach(rule => { %>
                 <% player.rules.forEach(playerRule =>{%>
@@ -36,7 +45,7 @@
                 <% }) %>
                 <% if(!ruleExists){ %>
                     <% if(rule.isSecret){%>}
-                        <option value="<%= rule._id %>"><%=rule.number%></option> 
+                        <option value="<%= rule._id %>"><%=rule.number%>: <%=rule.info%></option> 
                     <%}%>
                 <% } %>
                 <%ruleExists=false;%>
@@ -44,6 +53,8 @@
         </select>
         <input type="submit" value="Add New Rule">
     </form>
+    <p id=rule-number></p>
+    <p id=rule-info></p>
     <%}%>
 </body>
 </html>
