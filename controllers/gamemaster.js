@@ -261,14 +261,19 @@ router.get("/trade", async function (req, res) {
                 //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
                 const updated = await db.Player.updateOne({ _id: req.body.tradeeName, "items.item": req.body.traderItem}, {$inc: {"items.$.quantity": parseInt(req.body.traderQuantity)}});
                 console.log("updated", updated)
-                //removes from trader
-                await db.Player.updateOne({ _id: req.body.traderName, "items.item": req.body.traderItem}, {$inc: {"items.$.quantity": -parseInt(req.body.traderQuantity)}})
-
             } else {
                 console.log("does not have item");
                 const foundItem = await db.Item.findById(req.body.traderItem);
                 tradee.items.push({item: foundItem._id, quantity: req.body.traderQuantity});
                 await tradee.save();
+            }
+            //removes from trader
+            const isTotal = trader.items.find((item) => { return item.quantity === parseInt(req.body.traderQuantity)});
+            if(isTotal) {
+                const deleted = await db.Player.findByIdAndUpdate( req.body.traderName, {$pull: {items: {item: req.body.traderItem}}}, {new: true});
+                console.log(deleted);
+            } else {
+                await db.Player.updateOne({ _id: req.body.traderName, "items.item": req.body.traderItem}, {$inc: {"items.$.quantity": -parseInt(req.body.traderQuantity)}});
             }
         }
         //trader gives rules to tradee
