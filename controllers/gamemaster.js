@@ -10,8 +10,51 @@ const router = express.Router();
 
 /*==============================FUNCTIONS==============================*/
 
-const tradeProperties = function tradeProperties(traderOne, traderTwo) {
+const tradeProperties = async function tradeProperties(giver, receiver) {
     
+     const trader = await db.Player.findById(giver.id);
+     console.log("1trader",trader);
+
+     const tradee = await db.Player.findById(receiver.id);
+     console.log("1tradee",tradee);
+
+    //trader give items to tradee
+    if (giver.itemId !== ""){//if it is trading an item
+        console.log("item is not empty");
+        console.log(giver.itemId);
+        const hasItem = tradee.items.find((item) => {console.log("item",item.item); return item.item.toString() === giver.itemId}) 
+
+        if (hasItem) {//if other player already has some of that item
+            console.log("has item");
+            //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
+            const updated = await db.Player.updateOne({ _id: receiver.id, "items.item": giver.itemId}, {$inc: {"items.$.quantity": parseInt(giver.quantity)}});
+            console.log("2updated", updated)
+        } else {//if other player does not have this item
+            console.log("does not have item");
+            const updated = await db.Player.findByIdAndUpdate( receiver.id, {$push: {items: {item: giver.itemId, quantity: giver.quantity}}}, {new: true});
+            console.log("2updated", updated)
+        }
+        //removes items from trader
+        const isTotal = trader.items.find((item) => { return item.quantity === parseInt(giver.quantity)});
+        if(isTotal) {//if they are trading all of their items
+            const deleted = await db.Player.findByIdAndUpdate( giver.id, {$pull: {items: {item: giver.itemId}}}, {new: true});
+            console.log("3deleted",deleted);
+        } else {//if they are trading just some
+            await db.Player.updateOne({ _id: giver.id, "items.item": giver.itemId}, {$inc: {"items.$.quantity": -parseInt(giver.quantity)}});
+            console.log("3deleted");
+        }
+    }
+    //trader gives rules to tradee
+    if(giver.ruleId !== ""){
+
+        const updated = await db.Player.findByIdAndUpdate( receiver.id, {$push: {rules: giver.ruleId}}, {new: true});
+        console.log("4updated", updated);
+
+        //removes rules from trader
+        // const deleted = await db.Player.findByIdAndUpdate( giver.id, {$pull: {rules: giver.ruleId}}, {new: true});
+        // console.log("4deleted", deleted);
+
+    }
 
 
 }
@@ -228,103 +271,34 @@ router.get("/trade", async function (req, res) {
  
  })
 
- router.post("/trade", async function (req, res) {
+ router.put("/trade", async function (req, res) {
      try {
-        // console.log(req.body.traderName)
-        let trader = await db.Player.findById(req.body.traderName);
-        console.log("trader",trader);
 
-        // console.log(req.body.tradeeName)
-        let tradee = await db.Player.findById(req.body.tradeeName);
-        console.log("tradee",tradee);
+        const player1 = {
 
-        //trader give items to tradee
-        if (req.body.traderItem !== ""){
-            console.log("item is not empty");
-            console.log(req.body.traderItem);
-            const hasItem = tradee.items.find((item) => {console.log("item",item.item); return item.item.toString() === req.body.traderItem}) 
-
-            if (hasItem) {
-                console.log("has item");
-                //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
-                const updated = await db.Player.updateOne({ _id: req.body.tradeeName, "items.item": req.body.traderItem}, {$inc: {"items.$.quantity": parseInt(req.body.traderQuantity)}});
-                console.log("updated", updated)
-            } else {
-                console.log("does not have item");
-                const foundItem = await db.Item.findById(req.body.traderItem);
-                tradee.items.push({item: foundItem._id, quantity: req.body.traderQuantity});
-                await tradee.save();
-            }
-            //removes items from trader
-            const isTotal = trader.items.find((item) => { return item.quantity === parseInt(req.body.traderQuantity)});
-            if(isTotal) {
-                const deleted = await db.Player.findByIdAndUpdate( req.body.traderName, {$pull: {items: {item: req.body.traderItem}}}, {new: true});
-                console.log(deleted);
-            } else {
-                await db.Player.updateOne({ _id: req.body.traderName, "items.item": req.body.traderItem}, {$inc: {"items.$.quantity": -parseInt(req.body.traderQuantity)}});
-            }
-        }
-        //trader gives rules to tradee
-        if(req.body.traderRule !== ""){
-
-            const updated = await db.Player.findByIdAndUpdate( req.body.tradeeName, {$push: {rules: req.body.traderRule}}, {new: true});
-            console.log("updated", updated);
-
-            //removes rules from trader
-            const deleted = await db.Player.findByIdAndUpdate( req.body.traderName, {$pull: {rules: req.body.traderRule}}, {new: true});
-            console.log("deleted", deleted);
+            id: req.body.traderName,
+            itemId: req.body.traderItem,
+            quantity: req.body.traderQuantity,
+            ruleId: req.body.traderRule
 
         }
 
-        // console.log(req.body.traderName)
-        trader = await db.Player.findById(req.body.traderName);
-        console.log("trader",trader);
+        const player2 = {
 
-        // console.log(req.body.tradeeName)
-        tradee = await db.Player.findById(req.body.tradeeName);
-        console.log("tradee",tradee);
-
-        //trader give items to tradee
-        if (req.body.tradeeItem !== ""){
-            console.log("item is not empty");
-            console.log(req.body.tradeeItem);
-            const hasItem = trader.items.find((item) => {console.log("item",item.item); return item.item.toString() === req.body.tradeeItem}) 
-
-            if (hasItem) {
-                console.log("has item");
-                //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
-                const updated = await db.Player.updateOne({ _id: req.body.traderName, "items.item": req.body.tradeeItem}, {$inc: {"items.$.quantity": parseInt(req.body.tradeeQuantity)}});
-                console.log("updated", updated)
-            } else {
-                console.log("does not have item");
-                const foundItem = await db.Item.findById(req.body.tradeeItem);
-                trader.items.push({item: foundItem._id, quantity: req.body.tradeeQuantity});//TODO change to findbyidandupdate
-                await trader.save();
-            }
-            //removes items from trader
-            const isTotal = tradee.items.find((item) => { return item.quantity === parseInt(req.body.tradeeQuantity)});
-            if(isTotal) {
-                const deleted = await db.Player.findByIdAndUpdate( req.body.tradeeName, {$pull: {items: {item: req.body.tradeeItem}}}, {new: true});
-                console.log(deleted);
-            } else {
-                await db.Player.updateOne({ _id: req.body.tradeeName, "items.item": req.body.tradeeItem}, {$inc: {"items.$.quantity": -parseInt(req.body.tradeeQuantity)}});
-            }
-        }
-        //trader gives rules to tradee
-        if(req.body.tradeeRule !== ""){
-
-            const updated = await db.Player.findByIdAndUpdate( req.body.traderName, {$push: {rules: req.body.tradeeRule}}, {new: true});
-            console.log("updated", updated);
-
-            //removes rules from trader
-            const deleted = await db.Player.findByIdAndUpdate( req.body.tradeeName, {$pull: {rules: req.body.tradeeRule}}, {new: true});
-            console.log("deleted", deleted);
+            id: req.body.tradeeName,
+            itemId: req.body.tradeeItem,
+            quantity: req.body.tradeeQuantity,
+            ruleId: req.body.tradeeRule
 
         }
 
+        await tradeProperties(player1, player2);
+
+        await tradeProperties(player2, player1);
 
 
-         res.send({"trader":trader, "tradee":tradee});
+        res.redirect("/gamemaster/trade")
+        //  res.send({"trader":trader, "tradee":tradee});
         //res.status(status).send(trader, tradee);
      } catch (error) {
          console.log(error);
