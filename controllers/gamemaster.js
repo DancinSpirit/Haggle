@@ -56,28 +56,6 @@ router.get("/players/:id/rules", async function (req, res) {
     }
 })
 
-/* Create New Player */
-router.post("/players", async function (req, res){
-    try{
-        let playerExists = false;
-        const allPlayers = await db.Player.find({});
-        allPlayers.forEach(player => {
-            if(req.body.name==player.name){
-                playerExists = true;
-            }    
-        });
-        if(!playerExists){
-            await db.Player.create(req.body);
-            return res.redirect("/gamemaster/players")
-        }else {
-            const context = {description: "You tried to add a player that already exists!", redirect: "/gamemaster/players", button: "Players Page"};
-            return res.render("error",context);    
-        }
-    } catch(err){
-        return res.send(err);
-    }
-})
-
 /* Add an Item to Player */
 router.post("/players/:id/items", async function (req, res){
     try{

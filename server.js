@@ -1,6 +1,8 @@
 /* External Modules */
 const express = require("express");
 const methodOverride = require("method-override");
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 /* Interal Modules */
 const db = require("./models");
@@ -18,14 +20,44 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
-/* Controllers */
-app.use("/gamemaster", controllers.gamemaster);
-app.use("/players", controllers.players);
+/* Check if Signed In */
+authRequired = function(req,res,next){
+    if(req.session.currentUser){
+      next();
+    } else {
+      res.redirect("/login");
+    }
+}
+/* Check if Gamemaster */
+gamemasterRequired = function(req,res,next){
+    if(req.session.currentUser.gamemaster){
+        next();
+    } else {
+        res.redirect("/login");
+    }  
+}
 
+/* Session */
+app.use(session({
+    store: new MongoStore({
+        url: "mongodb://localhost:27017/haggle"
+    }),
+    secret: "Shhhhh it's secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 7 * 2
+    }  
+}));
+
+/* Controllers */
+app.use("/gamemaster", authRequired, gamemasterRequired, controllers.gamemaster);
+app.use("/players", authRequired, controllers.players);
+app.use("/", controllers.auth);
 
 /* Home Route */
 app.get("/", function(req, res){
-    res.render("home");
+    res.redirect("/login");
 })
 
 app.get("*", function(req,res){
