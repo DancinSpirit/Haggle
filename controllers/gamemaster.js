@@ -51,8 +51,8 @@ const tradeProperties = async function tradeProperties(giver, receiver) {
         console.log("4updated", updated);
 
         //removes rules from trader
-        const deleted = await db.Player.findByIdAndUpdate( giver.id, {$pull: {rules: giver.ruleId}}, {new: true});
-        console.log("4deleted", deleted);
+        // const deleted = await db.Player.findByIdAndUpdate( giver.id, {$pull: {rules: giver.ruleId}}, {new: true});
+        // console.log("4deleted", deleted);
 
     }
 
@@ -293,7 +293,7 @@ router.get("/trade", async function (req, res) {
  
  })
 
- router.post("/trade", async function (req, res) {
+ router.put("/trade", async function (req, res) {
      try {
 
         const player1 = {
