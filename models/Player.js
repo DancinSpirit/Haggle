@@ -29,12 +29,13 @@ playerSchema.methods.updatePoints = async function updatePoints(){
         const currentPlayer = await Player.findById(this._id).populate("items.item");
         allRules.forEach(rule => {
             if(rule.ruleActivators.length!==0){
+                console.log("Length:" + rule.ruleActivators.length);
                 const hasAll=true;
                 rule.ruleActivators.forEach(ruleActivator => {
                     const hasItem=false;
                     currentPlayer.items.forEach(item => {
-                        console.log(this.name + ": " + item.name + ", Activator: " + ruleActivator.name);
-                        if(item.name===ruleActivator.name){
+                        console.log(this.name + ": " + item.item.name + ", Activator: " + ruleActivator.name);
+                        if(item.item.name===ruleActivator.name){
                             hasItem=true;
                         }
                     });

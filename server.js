@@ -48,7 +48,7 @@ app.use(async function(req,res,next){
     });
     next();
     }catch(err){
-        res.render(err);
+        res.send(err);
     }
 });
 
