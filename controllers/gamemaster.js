@@ -187,7 +187,7 @@ router.get("/items", async function (req, res) {
  //delete
  router.delete("/items/:id", async function (req, res) {
     try {
-        await db.Player.updateMany({},{$pull: {"items": req.params.id}});
+        await db.Player.updateMany({},{$pull: {"items": {item: req.params.id}}});
         const deletedItem = await db.Item.findByIdAndDelete(req.params.id);
         console.log(deletedItem);
         res.redirect("/gamemaster/items");

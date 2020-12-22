@@ -55,9 +55,28 @@ h1, h2, form, p, li, a, .buttons, .Player, .info{
 }
 
 .edit, .info{
-    border-bottom: solid 1px;
+    border: solid 1px;
+    width: 400px;
+    height: 200px;
+    margin: 5px;
 }
 
 .edit{
     display: none;
+    overflow-y: scroll;
+}
+
+ul{
+    list-style-type: none;
+}
+
+#List{
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#form{
+    border-top: solid 5px;
+    margin-top: 15px;
 }
