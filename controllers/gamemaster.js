@@ -11,30 +11,17 @@ const router = express.Router();
 /*==============================FUNCTIONS==============================*/
 
 const tradeProperties = async function tradeProperties(giver, receiver) {
-    
-     const trader = await db.Player.findById(giver.id);
-     console.log("1trader",trader);
-
-     const tradee = await db.Player.findById(receiver.id);
-     console.log("1tradee",tradee);
 
     //trader give items to tradee
     if (giver.itemId !== ""){//if it is trading an item
         console.log("item is not empty");
-        console.log(giver.itemId);
-        const hasItem = tradee.items.find((item) => {console.log("item",item.item); return item.item.toString() === giver.itemId}) 
 
-        if (hasItem) {//if other player already has some of that item
-            console.log("has item");
-            //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
-            const updated = await db.Player.updateOne({ _id: receiver.id, "items.item": giver.itemId}, {$inc: {"items.$.quantity": parseInt(giver.quantity)}});
-            console.log("2updated", updated)
-        } else {//if other player does not have this item
-            console.log("does not have item");
-            const updated = await db.Player.findByIdAndUpdate( receiver.id, {$push: {items: {item: giver.itemId, quantity: giver.quantity}}}, {new: true});
-            console.log("2updated", updated)
-        }
+        await addItemTo(receiver.id,giver.itemId, giver.quantity);
+       
         //removes items from trader
+        const trader = await db.Player.findById(giver.id);
+        console.log("1trader",trader);
+
         const isTotal = trader.items.find((item) => { return item.quantity === parseInt(giver.quantity)});
         if(isTotal) {//if they are trading all of their items
             const deleted = await db.Player.findByIdAndUpdate( giver.id, {$pull: {items: {item: giver.itemId}}}, {new: true});
@@ -45,18 +32,37 @@ const tradeProperties = async function tradeProperties(giver, receiver) {
         }
     }
     //trader gives rules to tradee
-    if(giver.ruleId !== ""){
-
-        const updated = await db.Player.findByIdAndUpdate( receiver.id, {$push: {rules: giver.ruleId}}, {new: true});
-        console.log("4updated", updated);
-
-        //removes rules from trader
-        // const deleted = await db.Player.findByIdAndUpdate( giver.id, {$pull: {rules: giver.ruleId}}, {new: true});
-        // console.log("4deleted", deleted);
+    if(giver.ruleId !== ""){   
+        await addRuleTo(receiver.id, giver.ruleId)
 
     }
+}
 
+const addItemTo = async function addItemTo(playerId, itemId, quantity) {
 
+    const tradee = await db.Player.findById(playerId);
+     console.log("1tradee",tradee);
+
+    const hasItem = tradee.items.find((item) => {console.log("item",item.item); return item.item.toString() === itemId}) 
+
+    if (hasItem) {//if player already has some of that item
+        console.log("has item");
+        //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
+        const updated = await db.Player.updateOne({ _id: playerId, "items.item": itemId}, {$inc: {"items.$.quantity": parseInt(quantity)}});
+        console.log("2updated", updated)
+    } else {//if player does not have this item
+        console.log("does not have item");
+        const updated = await db.Player.findByIdAndUpdate( playerId, {$push: {items: {item: itemId, quantity: quantity}}}, {new: true});
+        console.log("2updated", updated)
+    }
+    
+}
+
+const addRuleTo = async function addRuleTo(playerId, ruleId) {
+
+    const updated = await db.Player.findByIdAndUpdate( playerId, {$push: {rules: ruleId}}, {new: true});
+    console.log("4updated", updated);
+    return updated;
 }
 
 /*==============================ROUTES==============================*/
@@ -103,26 +109,9 @@ router.get("/players/:id/rules", async function (req, res) {
 router.post("/players/:id/items", async function (req, res){
     try{
         const id = req.params.id;
-        const foundPlayer = await db.Player.findById(id);
 
-        //checks if player already has item// if yes returns object which is truthy//else it returns undefined
-        const hasItem = foundPlayer.items.find((item) => {console.log("item",item.item); return item.item.toString() === req.body.item}) 
+        await addItemTo(id, req.body.item, req.body.quantity);
 
-        if (hasItem) {
-            console.log("has item");
-            //it uses the update query to find the player and which index of the array is the item, than use the place holder "$" to increase quantity there
-            const updated = await db.Player.updateOne({ _id: id, "items.item": req.body.item}, {$inc: {"items.$.quantity": parseInt(req.body.quantity)}}, {new:true});
-            console.log("updated", updated)
-            
-        } else {
-            console.log("does not have item");
-            const foundItem = await db.Item.findById(req.body.item);
-            foundPlayer.items.push({item: foundItem._id, quantity: req.body.quantity});
-            await foundPlayer.save();
-        }
-
-        const foundagainPlayer = await db.Player.findById(id);
-        console.log("foundPlayer", foundagainPlayer);
         return res.redirect(`/gamemaster/players/${id}/items`);
     } catch(err){
         console.log(err);
@@ -133,11 +122,9 @@ router.post("/players/:id/items", async function (req, res){
 router.post("/players/:id/rules", async function (req, res){
     try{
         const id = req.params.id;
-        const foundRule = await db.Rule.findById(req.body.rule);
-        const foundPlayer = await db.Player.findById(id);
-        foundPlayer.rules.push(foundRule._id);
-        await foundPlayer.save();
-        console.log("foundPlayer", foundPlayer);
+
+        await addRuleTo(id, req.body.rule);
+
         return res.redirect(`/gamemaster/players/${id}/rules`);
     } catch(err){
         return res.send(err);
@@ -260,10 +247,8 @@ router.get("/trade", async function (req, res) {
     try {
 
         const allPlayers = await db.Player.find({}).populate("items.item").populate("rules");
-        // console.log(allPlayers);
-        // console.log(allPlayers[1].items);
-        //const allRules = await db.Rule.find({});
-         res.render("gamemaster/trade", {players: allPlayers});
+
+        res.render("gamemaster/trade", {players: allPlayers});
  
     } catch (err) {
         res.send(err);
