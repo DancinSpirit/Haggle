@@ -47,8 +47,8 @@ app.use(async function(req,res,next){
         player.updatePoints();
     });
     next();
-    } catch(err){
-        res.render(err);
+    }catch(err){
+        res.send(err);
     }
 });
 

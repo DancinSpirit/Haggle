@@ -186,8 +186,9 @@ router.get("/items", async function (req, res) {
 router.get("/rules", async function (req, res) {
     try {
 
-        const allRules = await db.Rule.find({});
-         res.render("gamemaster/rules_index", {rules: allRules});
+        const allRules = await db.Rule.find({}).populate("ruleActivators");
+        const allItems = await db.Item.find({});
+        res.render("gamemaster/rules_index", {rules: allRules, items: allItems});
  
     } catch (err) {
         res.send(err);

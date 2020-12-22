@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RULES</title>
     <link rel="stylesheet" href="/styles/main.css" />
+    <%- include("../partials/font")%>
 </head>
 <body>
     <%- include("../partials/nav") %>
@@ -26,6 +27,16 @@
                 <ul>    
                     <li><%= rule.info %></li>
                     <li><%= (rule.isSecret ? "This is a secret! SHHHHH!" : "This is common knowledge!") %></li>
+                    <%if(rule.ruleActivators.length!==0){%>
+                    <li>Technical Effect: If the player has
+                        <%for(let x=0; x<rule.ruleActivators.length; x++){%>
+                            <%if(x>0){%>
+                                AND
+                            <%}%>
+                            <%=rule.ruleActivators[x].name%>
+                        <%}%>
+                        , then <%= rule.operator%> <%=rule.pointValue%></li>
+                    <%}%>
                 </ul>
                 </li>
 
@@ -45,9 +56,24 @@
         Rule Number: <input type="number" name="number" required value=<%= rules.length+1 %>>
         Info: <input type="text" name="info" required placeholder="Rule description">
         Secrecy: <input type="checkbox" name="isSecret">
-
+        </br>
+        <h3>SPECIAL RULE EFFECTS (Not Required)</h3>
+        <p>(Can pick multiple items by holding control)</p>
+        </br>
+        If the Player Has: 
+        <select name="ruleActivators" multiple>
+            <% items.forEach(item => { %>
+                <option value="<%= item._id %>"><%=item.name%></option> 
+            <% }) %>
+        </select>
+        then
+        <select name="operator">
+            <option value="the players score value has an increase of">the players score value has an increase of</option>
+            <option value="multiply the player's current score by">multiply the player's current score by</option>
+        </select>
+        <input type="number" name="pointValue" value=0>
+        </br>
         <input type="submit" value="ENTER NEW RULE">
-    
     </form>
     
      
