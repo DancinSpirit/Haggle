@@ -5,34 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%=player.name%></title>
     <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/players/players.css" />
     <%- include("../partials/font")%>
 </head>
 <body>
-    <%- include("../partials/playersnav") %>        
+    <%- include("../partials/playersnav") %>  
+          
+    <main>
+        <h1><%= player.name %></h1>
+        <section>
+            <div class="left">
+                <h2>your items</h2>
+                <ul>
+                    <% player.items.forEach(item => { %>
+                        
+                        <% console.log("1", item) %> 
+                        <li><p><%= item.item.name %> X <%= item.quantity %></p></li>
+                    <% }) %>
+                </ul>
+            </div>
 
-    <h1><%= player.name %></h1>
-    
-    <h2>your items</h2>
-    <ul>
-        <% player.items.forEach(item => { %>
-            
-            <% console.log("1", item) %> 
-            <li><%= item.item.name %> X <%= item.quantity %> </li>
-        <% }) %>
-    </ul>
+            <div class="right">
+                <h2>your rules</h2>
+                <ul>
+                    <% player.rules.forEach(rule => { %>
+                        <li><p>Rule #<%= rule.number %></p>
+                            <p><%= rule.info %></p></li>
+                    <% }) %>
 
-    <h2>your rules</h2>
-    <ul>
-        <% player.rules.forEach(rule => { %>
-            <li>Rule #<%= rule.number %></li>
-            <li><%= rule.info %></li>
-        <% }) %>
-
-        <% rules.forEach(rule => { %>
-            <li>Rule #<%= rule.number %></li>
-            <li><%= rule.info %></li>
-        <% }) %>
-    </ul>
-
+                    <% rules.forEach(rule => { %>
+                        <li><p>Rule #<%= rule.number %></p>
+                            <p><%= rule.info %></p></li>
+                    <% }) %>
+                </ul>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
