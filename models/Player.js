@@ -22,29 +22,27 @@ playerSchema.methods.updatePoints = async function updatePoints(){
             const foundItem = await Item.findById(this.items[x].item);
             totalScore += foundItem.pointValue*this.items[x].quantity;
         };
-        this.points = totalScore;
 
         /* This uses the rule special effects */
         const allRules = await Rule.find({}).populate("ruleActivators");
         const currentPlayer = await Player.findById(this._id).populate("items.item");
         allRules.forEach(rule => {
+            /* This checks to make sure that the player has the items that activates the rule.*/
             if(rule.ruleActivators.length!==0){
-                console.log("Length:" + rule.ruleActivators.length);
-                const hasAll=true;
+                let hasAll=true;
                 rule.ruleActivators.forEach(ruleActivator => {
-                    const hasItem=false;
+                    let hasItem=false;
                     currentPlayer.items.forEach(item => {
-                        console.log(this.name + ": " + item.item.name + ", Activator: " + ruleActivator.name);
                         if(item.item.name===ruleActivator.name){
                             hasItem=true;
-                        }
+                        } 
                     });
                     if(!hasItem){
                         hasAll=false;
-                    }
+                    } 
                 });
+                /* If the player has the items, then it calculates the points */
                 if(hasAll){
-                    console.log("We got here!");
                     if(rule.operator==="the players score value has an increase of"){
                         totalScore += rule.pointValue;    
                     }
@@ -54,10 +52,11 @@ playerSchema.methods.updatePoints = async function updatePoints(){
                 }
             }    
         });
-            
+
+        this.points = totalScore;    
         this.save();
     } catch(err){
-        return err;
+        console.log(err);
     }
 }
 
