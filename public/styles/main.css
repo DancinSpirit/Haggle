@@ -36,7 +36,7 @@ nav{
     color: darkorange; 
 }
 
-h1, h2, form, p, li, a, .buttons, .Player{
+h1, h2, form, p, li, a, .buttons, .Player, .info{
     text-align: center;
     padding: 3px;
 }
@@ -50,4 +50,14 @@ h1, h2, form, p, li, a, .buttons, .Player{
     transform: translate(-50%, -50%);
 }
 
-  
+#delete-form{
+    display: inline;
+}
+
+.edit, .info{
+    border-bottom: solid 1px;
+}
+
+.edit{
+    display: none;
+}

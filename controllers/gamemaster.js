@@ -167,6 +167,23 @@ router.get("/items", async function (req, res) {
     }
  
  })
+ //update
+ router.put("/items/:id", function (req, res){
+         db.Item.findByIdAndUpdate(
+            req.params.id,
+            {
+                $set: {
+                    ...req.body,
+                },
+            },
+            {new: true},
+            function (err, updatedItem){
+                if(err) return res.send(err);
+                return res.redirect("/gamemaster/items");
+            }
+        )
+
+ })
  //delete
  router.delete("/items/:id", async function (req, res) {
     try {
@@ -227,6 +244,30 @@ router.get("/rules", async function (req, res) {
     }
  
  })
+//update
+router.put("/rules/:id", function (req, res){
+    if(req.body.isSecret) {
+        req.body.isSecret = true;
+        
+    } else {
+        req.body.isSecret = false
+        
+    }
+    db.Rule.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set: {
+                ...req.body,
+            },
+        },
+        {new: true},
+        function (err, updatedRule){
+            if(err) return res.send(err);
+            return res.redirect("/gamemaster/rules");
+        }
+   )
+
+})
  //delete
  router.delete("/rules/:id", async function (req, res) {
     try {
