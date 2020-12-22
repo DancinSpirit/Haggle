@@ -1,22 +1,4 @@
-/* console.log("trade scripts connect");
 
-
-const $selectedPlayer = $("select[name='player']");
-
-console.log($selectedPlayer);
-
-
-console.log($selectedPlayer.find(":selected").text());
-
-const $curItems = $(`.${$selectedPlayer.find(":selected").text()}__items`)
-
-console.log($curItems);
-
-console.log($selectedPlayer.val());
-
-
-
- */
 
 /*===========================FUNCTIONS=========================*/
 
@@ -42,6 +24,10 @@ const removeOnSibling = function removeOnSibiling($selectedTransactor) {//tranba
 }
 
 const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
+    //removes the quantity if changing players
+    // console.log($dropDown.siblings("select.items:not([name='possible'])"));
+    $dropDown.siblings("select.items").not("[name='possible']").val("");
+    correctQuantity($dropDown.siblings("select.items").not("[name='possible']"));
 
     const $chosenPlayer = $dropDown.children((isLoad ? "option:first-of-type" : ":selected"));
 
@@ -69,31 +55,25 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
     }
     
 }
-
+//TODO fix bug where if you change the player without unselecting the item the quantity dropdown still shows
 const correctQuantity = function correctQuantity($dropDown) {
 
     const $chosenItem = $dropDown.children(":selected");
-    console.log($chosenItem);
-    if($chosenItem.text() === "") {
-        const variableName = `${$chosenItem.parent().parent("section").attr("class")}Quantity`;
+    const variableName = `${$chosenItem.parent().parent("section").attr("class")}Quantity`;
 
+    if($chosenItem.text() === "") {//if there is no item chosen
         console.log($(`select[name='${variableName}']`));
         return $(`select[name='${variableName}']`).remove();
     }
-    console.log($chosenItem);
 
     const curQuantity = $chosenItem.attr("quantity");
-    console.log(curQuantity);
-
     let options = ""
 
     for (let i = 1; i <= curQuantity; i++) {
         options += `<option value="${i}">${i}</option>`;
         
     }
-    const variableName = `${$chosenItem.parent().parent("section").attr("class")}Quantity`;
 
-    console.log($(`select[name='${variableName}']`));
     $(`select[name='${variableName}']`).remove();
 
     const $quantityDropdown = $(`<select name="${variableName}">
@@ -105,13 +85,6 @@ const correctQuantity = function correctQuantity($dropDown) {
 }
 
 /*===========================EVENT LISTENERS=========================*/
-
-// const $selectedTrader = $(".trader").children("select[name='traderName']");
-// console.log($selectedTrader);
-
-// const $selectedTradee = $(".tradee").children("select[name='tradeeName']");
-// console.log($selectedTradee);
-// console.log($selectedTrader.find(":selected").text());
 
 const $selectedTraders = $("section").children("select.name");
 console.log($selectedTraders);
@@ -129,13 +102,6 @@ $selectedTraders.on("change", (event) => {
     correctDropdowns($(event.target), false);
 
 });
-
-// $selectedTradee.on("change", (event) => { 
-    
-//     correctDropdowns($(event.target), false);
-    
-
-// });
 
 const $selectedItems = $("section").children("select.items");
 console.log($selectedItems);
