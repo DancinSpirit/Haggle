@@ -27,6 +27,7 @@ playerSchema.methods.updatePoints = async function updatePoints(){
         const allRules = await Rule.find({}).populate("ruleActivators");
         const currentPlayer = await Player.findById(this._id).populate("items.item");
         allRules.forEach(rule => {
+            /* This checks to make sure that the player has the items that activates the rule.*/
             if(rule.ruleActivators.length!==0){
                 let hasAll=true;
                 rule.ruleActivators.forEach(ruleActivator => {
@@ -40,6 +41,7 @@ playerSchema.methods.updatePoints = async function updatePoints(){
                         hasAll=false;
                     } 
                 });
+                /* If the player has the items, then it calculates the points */
                 if(hasAll){
                     if(rule.operator==="the players score value has an increase of"){
                         totalScore += rule.pointValue;    
