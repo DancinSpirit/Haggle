@@ -54,23 +54,31 @@ h1, h2, form, p, li, a, .buttons, .Player, .info{
     display: inline;
 }
 
-.edit, .info{
-    border: solid 1px;
-    width: 400px;
-    height: 200px;
+.edit, .info, .player, .item{
+    border: solid 3px;
+    background-color: orange;
     margin: 5px;
+    max-width: 400px;
+}
+
+.rule-info{
+    min-height: 175px;
+}
+
+.rule-edit{
+    overflow-y: scroll;
+    height: 175px;
 }
 
 .edit{
     display: none;
-    overflow-y: scroll;
 }
 
 ul{
     list-style-type: none;
 }
 
-#List{
+#list{
     justify-content: center;
     display: flex;
     flex-wrap: wrap;

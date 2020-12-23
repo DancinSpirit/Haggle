@@ -10,12 +10,21 @@
 <body>
     <%- include("../../partials/nav") %>
     <h1><%=player.name %>'s Secret Rules</h1>
-    <ul>
-        <% player.rules.forEach(rule => { %>
-            <li>Rule <%= rule.number %></li>
-            <li><%= rule.info %></li>
-        <% }) %>
-    </ul>
+    <%if(player.rules.length===0){%>
+        <h2>This player has no rules!</h2>
+    <%}else{%>
+    <section id="list">
+        <section class="item">
+            <ul>
+                <% player.rules.forEach(rule => { %>
+                    <li>Rule <%= rule.number %></li>
+                    <li><%= rule.info %></li>
+                <% }) %>
+            </ul>
+        </section>
+    </section>
+    <%}%>
+
     <%let rulesLength = 0;%>
     <%let ruleExists = false; %>
     <% rules.forEach(rule => { %>

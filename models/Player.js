@@ -26,6 +26,7 @@ playerSchema.methods.updatePoints = async function updatePoints(){
         /* This uses the rule special effects */
         const allRules = await Rule.find({}).populate("ruleActivators");
         const currentPlayer = await Player.findById(this._id).populate("items.item");
+        const multipliers = [];
         allRules.forEach(rule => {
             /* This checks to make sure that the player has the items that activates the rule.*/
             if(rule.ruleActivators.length!==0){
@@ -47,12 +48,14 @@ playerSchema.methods.updatePoints = async function updatePoints(){
                         totalScore += rule.pointValue;    
                     }
                     if(rule.operator==="multiply the player's current score by"){
-                        totalScore = totalScore*rule.pointValue;
+                        multipliers.push(rule.pointValue);
                     }
                 }
             }    
         });
-
+        multipliers.forEach(multiplier => {
+            totalScore = totalScore*multiplier;
+        });
         this.points = totalScore;    
         this.save();
     } catch(err){

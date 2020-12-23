@@ -10,6 +10,9 @@
 <body>
     <%- include("../../partials/nav") %>
     <h1><%= player.name %>'s Items</h1>
+    <%if(player.items.length===0){%>
+        <h2>This player has no items!</h2>
+    <%}else{%>
     <ul>
         <% player.items.forEach(item => { %>
             <%console.log("1", item);%>
@@ -18,6 +21,7 @@
             <li><%= item.item.name %>: x<%= item.quantity %></li>
         <% }) %>
     </ul>
+    <%}%>
     
     <% if(items.length===0){%>
         <p>There are no items!</p>
@@ -28,7 +32,7 @@
                 <option value="<%= item._id %>"><%=item.name%></option> 
             <% }) %>
         </select>
-        Qt. <input type="number" name="quantity" required>
+        Qt. <input type="number" name="quantity" min="1" required >
         <input type="submit" value="Add New Item">
     </form>
     <%}%>
