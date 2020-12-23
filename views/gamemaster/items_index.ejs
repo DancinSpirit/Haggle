@@ -34,7 +34,7 @@
                 <!-- Edit Section -->
                 <section class="edit" id="<%=item._id%>-edit">
                     <form action="/gamemaster/items/<%= item._id %>?_method=PUT" method="POST">
-                        Name: <input type="text" name="name" required value=<%=item.name%>>
+                        Name: <input type="text" name="name" required value="<%=item.name%>">
                         </br>
                         Value: <input type="number" name="pointValue" required value=<%=item.pointValue%> >
                         </br>
