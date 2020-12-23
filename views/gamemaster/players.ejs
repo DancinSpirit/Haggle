@@ -9,23 +9,26 @@
 </head>
 <body>
     <%- include("../partials/nav") %>
+
+    <!-- Player List -->
     <h1>Players Page</h1>
     <%if(players.length===0){%>
         <h2>There are no players!</h2>
     <%}else{%>
-    <article id="list">
-        <% players.forEach(player =>{ %> 
-            <section class="player">
-                <p><%= player.name %></p>
-                <p><a href="/gamemaster/players/<%=player._id%>/rules">Rules</a></p>
-                <p><a href="/gamemaster/players/<%=player._id%>/items">Items</a></p>
-                <p>Points: <%=player.points%></p> 
-                <form action="/gamemaster/players/<%=player._id%>?_method=DELETE" method="post">
-                    <input type="submit" value="Delete Player">
-                </form>
-            </section>
-        <% }) %> 
-    </article>
+        <article id="list">
+            <% players.forEach(player =>{ %> 
+                <section class="player">
+                    <p><%= player.name %></p>
+                    <p><a href="/gamemaster/players/<%=player._id%>/rules">Rules</a></p>
+                    <p><a href="/gamemaster/players/<%=player._id%>/items">Items</a></p>
+                    <p>Points: <%=player.points%></p> 
+                    <form action="/gamemaster/players/<%=player._id%>?_method=DELETE" method="post">
+                        <input type="submit" value="Delete Player">
+                    </form>
+                </section>
+            <% }) %> 
+        </article>
     <%}%>
+    
 </body>
 </html>

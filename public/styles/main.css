@@ -43,7 +43,7 @@ nav>p{
     color: darkorange; 
 }
 
-h1, h2, form, p, li, a, .buttons, .Player, .info{
+h1, h2, form, p, li, a, .buttons, .Player, .info, .item-button{
     text-align: center;
     padding: 3px;
 }

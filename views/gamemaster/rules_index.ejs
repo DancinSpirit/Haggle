@@ -12,42 +12,39 @@
 <body>
     <%- include("../partials/nav") %>
 
+    <!-- Rules List -->
     <h1>This Game's Rules!</h1>
-
-    <% if (!rules.length) { %>
-     
+    <% if (!rules.length) {%>
         <h2>The game has no rules yet!</h2>
-
-    <% } else { %>
-
+    <%}else{ %>
         <h2>Rules List</h2>
         <section id="list">
             <% rules.forEach(rule => { %>
+                <!-- Info Section -->
                 <section class="info rule-info" id="<%=rule._id%>-info">
                     RULE NUMBER: <%= rule.number %> 
                     <ul>    
                         <li><%= rule.info %></li>
                         <li><%= (rule.isSecret ? "This is a secret! SHHHHH!" : "This is common knowledge!") %></li>
                         <%if(rule.ruleActivators.length!==0){%>
-                        <li>Technical Effect: If the player has
-                            <%for(let x=0; x<rule.ruleActivators.length; x++){%>
-                                <%if(x>0){%>
-                                    AND
+                            <li>Technical Effect: If the player has
+                                <%for(let x=0; x<rule.ruleActivators.length; x++){%>
+                                    <%if(x>0){%>
+                                        AND
+                                    <%}%>
+                                    <%=rule.ruleActivators[x].name%>
                                 <%}%>
-                                <%=rule.ruleActivators[x].name%>
-                            <%}%>
-                            then <%= rule.operator%> <%=rule.pointValue%></li>
+                                then <%= rule.operator%> <%=rule.pointValue%>
+                            </li>
                         <%}%>
                     </ul>                    
-
                     <form action="/gamemaster/rules/<%= rule._id %>?_method=DELETE" method="post" id="delete-form">
                         <input type="submit" value="Delete Rule">
                     </form>
                     <button class = "edit-button" id="<%=rule._id%>">Edit Rule</button>
-                    </section>
-
-                    <!-- Edit Section -->
-                    <section class= "edit rule-edit" id="<%=rule._id%>-edit">
+                </section>
+                <!-- Edit Section -->
+                <section class= "edit rule-edit" id="<%=rule._id%>-edit">
                     <form action="/gamemaster/rules/<%=rule._id%>?_method=PUT" method="POST">
                         Rule Number: <input type="number" name="number" required value=<%= rule.number %>>
                         </br>
@@ -59,37 +56,39 @@
                         <%}%>>
                         </br>
                         <p></p>
-                            <h3>SPECIAL RULE EFFECTS</h3>
-                            <p>(Can pick multiple items by holding control)</p>
-                            </br>
-                            If the Player Has: 
-                            <select name="ruleActivators" multiple>
-                                <% items.forEach(item => { %>
-                                    <option 
-                                    <%rule.ruleActivators.forEach(ruleActivator => {%>
-                                        <%if(ruleActivator.name===item.name){%>
-                                            selected
-                                        <%}%>
-                                    <%})%>
-                                    value="<%= item._id %>"><%=item.name%></option> 
-                                <% }) %>
-                            </select>
-                            </br>then
-                            <select name="operator">
+                        <h3>SPECIAL RULE EFFECTS</h3>
+                        <p>(Can pick multiple items by holding control)</p>
+                        </br>
+                        If the Player Has: 
+                        <select name="ruleActivators" multiple>
+                            <% items.forEach(item => { %>
                                 <option 
+                                <%rule.ruleActivators.forEach(ruleActivator => {%>
+                                    <%if(ruleActivator.name===item.name){%>
+                                        selected
+                                    <%}%>
+                                <%})%>
+                                value="<%= item._id %>"><%=item.name%></option> 
+                            <% }) %>
+                        </select>
+                        </br>then
+                        <select name="operator">
+                            <option 
                                 <%if(rule.operator==="the players score value has an increase of"){%>
                                     selected
                                 <%}%>
-                                value="the players score value has an increase of">the players score value has an increase of</option>
-                                <option 
+                                value="the players score value has an increase of">the players score value has an increase of
+                            </option>
+                            <option 
                                 <%if(rule.operator==="multiply the player's current score by"){%>
                                     selected
                                 <%}%>
-                                value="multiply the player's current score by">multiply the player's current score by</option>
-                            </select>
-                            </br>
-                            <input type="number" name="pointValue" value=<%=rule.pointValue%>>
-                            </br>        
+                                value="multiply the player's current score by">multiply the player's current score by
+                            </option>
+                        </select>
+                        </br>
+                        <input type="number" name="pointValue" value=<%=rule.pointValue%>>
+                        </br>        
                         <input type="submit" value="Edit Rule!">
                     </form>   
                 </section>                    
@@ -97,6 +96,7 @@
         </section>
     <% } %>
 
+    <!-- Add Rule -->
     <form action="/gamemaster/rules" method="POST" id="form">
         <h2>ADD RULE</h2>
         Rule Number: <input type="number" name="number" required value=<%= rules.length+1 %>>

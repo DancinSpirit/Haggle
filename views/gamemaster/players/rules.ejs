@@ -8,7 +8,10 @@
     <%- include("../../partials/font")%>
 </head>
 <body>
+
     <%- include("../../partials/nav") %>
+
+    <!-- Rule List -->
     <h1><%=player.name %>'s Secret Rules</h1>
     <%if(player.rules.length===0){%>
         <h2>This player has no rules!</h2>
@@ -26,6 +29,7 @@
     </section>
     <%}%>
 
+    <!-- Add Rule -->
     <%let rulesLength = 0;%>
     <%let ruleExists = false; %>
     <% rules.forEach(rule => { %>
@@ -36,7 +40,7 @@
                 <%}%>
             <% }) %>
             <% if(!ruleExists){ %>
-            <% rulesLength++ %>
+                <% rulesLength++ %>
             <%}%>
             <%ruleExists = false;%>
         <%}%>
@@ -51,7 +55,6 @@
             <% rules.forEach(rule => { %>
                 <% player.rules.forEach(playerRule =>{%>
                     <% if(rule.number==playerRule.number){%>
-                        <%console.log(rule.number + " " + playerRule.number);%>
                         <% ruleExists = true;%>
                     <%}%>
                 <% }) %>
@@ -66,5 +69,6 @@
         <input type="submit" value="Add New Rule">
         <%}%>
     </form>
+    
 </body>
 </html>

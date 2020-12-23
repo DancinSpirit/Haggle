@@ -142,6 +142,22 @@ router.delete("/players/:id/rules/:rule", async function(req,res){
         return res.send(err);
     }
 })
+/* Change Item Quantity on a Player */
+router.put("/players/:id/items/:item", async function(req,res){
+    try{
+        const player = req.params.id;
+        const item = req.params.item;
+        if(req.body.quantity==0){
+            const deleted = await db.Player.findByIdAndUpdate(player, {$pull: {items: {item: item}}}, {new: true});
+        }else{
+        const updated = await db.Player.updateOne({ _id: player, "items.item": item}, {$set: {"items.$.quantity": req.body.quantity}});
+        }
+        res.redirect(`/gamemaster/players/${player}/items`);
+    } catch(err){
+        console.log(err);
+        return res.send(err);
+    }
+})
 /* Delete a Player */
 router.delete("/players/:id/", async function(req,res){
     try{

@@ -24,9 +24,7 @@
                 <% players.forEach(player => { %>
 
                     <% if (player._id.toString() === user.player.toString()) { %>
-
                     <% } else { %>
-                        <% console.log(player._id, user.player) %>
                         <li><p><%= player.name %> </p>
                             <% player.items.forEach(item => { %>
                                 <p>- <%= item.item.name %> X <%= item.quantity %></p>
