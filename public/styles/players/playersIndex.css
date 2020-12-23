@@ -14,6 +14,7 @@ ul{
     height: 80%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 li{
@@ -24,6 +25,7 @@ li{
     overflow-y: auto;
     margin: 0 25px;
     border-style: solid;
+    background-color: orange;
 }
 
 p:first-child{

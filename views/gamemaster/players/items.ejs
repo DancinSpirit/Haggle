@@ -15,9 +15,6 @@
     <%}else{%>
     <section id="list">
         <% player.items.forEach(item => { %>
-            <%console.log("1", item);%>
-            <%console.log("2",item.quantity);%>
-            <%console.log("3",item.item);%>
             <section class="item">
             <p><%= item.item.name %>: x<%= item.quantity %></p>
             </section>
