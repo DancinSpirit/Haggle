@@ -19,7 +19,7 @@
                 <p>Rule <%= rule.number %></p>
                 <p><%= rule.info %></p>
                 <form action="/gamemaster/players/<%=player._id%>/rules/<%= rule._id %>?_method=DELETE" method="post">
-                    <input type="submit" value="Delete Rule">
+                    <input type="submit" value="Remove Rule">
                 </form>
             </section>
         <% }) %>
