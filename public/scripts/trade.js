@@ -22,9 +22,9 @@ const removeOnSibling = function removeOnSibiling($selectedTransactor) {
 const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
     //removes the quantity if changing players
     // console.log($dropDown.siblings("select.items:not([name='possible'])"));
-    console.log($dropDown.siblings("div").children("select.items").not("[name='possible']"));
-    $dropDown.siblings("div").children("select.items").not("[name='possible']").val("");
-    correctQuantity($dropDown.siblings("div").children("select.items").not("[name='possible']"));
+    console.log($dropDown.siblings("div").find("select.items").not("[name='possible']"));
+    $dropDown.siblings("div").find("select.items").not("[name='possible']").val("");
+    correctQuantity($dropDown.siblings("div").find("select.items").not("[name='possible']"));
 
     const $chosenPlayer = $dropDown.children((isLoad ? "option:first-of-type" : ":selected"));
 

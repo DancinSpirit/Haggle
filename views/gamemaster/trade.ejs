@@ -29,7 +29,7 @@
     
                     <% players.forEach(player => { %>
                         <div class="item_quantity">
-                            <p>ITEM: <select class="<%= player.name %> items" name="trader<%= i %>Item">
+                            <p style="display: none;" >ITEM: <select style="display: none;" class="<%= player.name %> items" name="trader<%= i %>Item">
                                 <option value=""></option>
                                 <% player.items.forEach(item => { %>
                                     <option value="<%= item.item._id %>" quantity="<%= item.quantity %>"><%= item.item.name %></option>
@@ -37,7 +37,7 @@
                             </select></p>
                         </div>
     
-                        <p>RULE: <select class="<%= player.name %> rules" name="trader<%= i %>Rule">
+                        <p style="display: none;">RULE: <select style="display: none;" class="<%= player.name %> rules" name="trader<%= i %>Rule">
                             <option value=""></option>
                             <% player.rules.forEach(rule => { %>
                                 <option value="<%= rule._id %>"><%= rule.number %></option>
