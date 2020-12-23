@@ -12,7 +12,7 @@ On the registration screen you can make an account. If there is no gamemaster yo
 ### Gamemaster
 After signing in with a Gamemaster account you are redirected to the Gamemaster Players Screen.
 #### Gamemaster Players Screen
-![Gamemaster_Players_Screen](haggle_screenshots/gamemaster_players.png)
+![Gamemaster Players Screen](haggle_screenshots/gamemaster_players.png)
 In this screen the gamemaster will be shown a list of all the players. Each player will have their scorre shown as well as two buttons redirecting to the Player's Rules, and Player's Items, and as an option to delete that player. Note that player accounts have to be created first for any players to show up in this list!
 #### Player Rules and Player Items
 ![Player Rules](haggle_screenshots/player_rules.png)
