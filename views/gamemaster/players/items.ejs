@@ -8,7 +8,10 @@
     <%- include("../../partials/font")%>
 </head>
 <body>
+
     <%- include("../../partials/nav") %>
+
+    <!-- Item List -->
     <h1><%= player.name %>'s Items</h1>
     <%if(player.items.length===0){%>
         <h2>This player has no items!</h2>
@@ -16,12 +19,13 @@
     <section id="list">
         <% player.items.forEach(item => { %>
             <section class="item">
-            <p><%= item.item.name %>: x<%= item.quantity %></p>
+                <p><%= item.item.name %>: x<%= item.quantity %></p>
             </section>
         <% }) %>
     </section>
     <%}%>
 
+    <!-- Add Item -->
     <form action="/gamemaster/players/<%=player._id%>/items" method="POST" id="form">
         <h2>Add Items to <%=player.name%></h2>
         <% if(items.length===0){%>
@@ -36,5 +40,6 @@
             <input type="submit" value="Add New Item">
         <%}%>
     </form>
+    
 </body>
 </html>

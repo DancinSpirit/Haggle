@@ -12,45 +12,40 @@
 <body>
     <%- include("../partials/nav") %>
 
+    <!-- Items List -->
     <h1>This Game's Items!</h1>
-
     <% if (!items.length) { %>
-     
         <h2>Game has no items yet</h2>
-
     <% } else { %>
-
         <h2>Items List</h2>
-
         <section id="list">
             <% items.forEach(item => { %>
+                <!-- Info Section -->
                 <section class="info" id="<%=item._id%>-info">
                     <ul>
                         <li><%= item.name %></li>
                         <li>Point Value: <%= item.pointValue %></li>
                     </ul>
                     <form action="/gamemaster/items/<%= item._id %>?_method=DELETE" method="post"id="delete-form">
-
                         <input type="submit" value="Delete Item">
                     </form>
                     <button class = "edit-button" id="<%=item._id%>">Edit Item</button>
                 </section>
+                <!-- Edit Section -->
                 <section class="edit" id="<%=item._id%>-edit">
                     <form action="/gamemaster/items/<%= item._id %>?_method=PUT" method="POST">
-    
                         Name: <input type="text" name="name" required value=<%=item.name%>>
                         </br>
                         Value: <input type="number" name="pointValue" required value=<%=item.pointValue%> >
                         </br>
                         <input type="submit" value="Edit Item!">
-                    
                     </form>
                 </section>
             <% }) %>
         </section>
-
     <% } %>
 
+    <!-- Add Item -->    
     <form action="/gamemaster/items" method="POST" id="form">
         <h2>ADD ITEM</h2>
         Name: <input type="text" name="name" required placeholder="item">
@@ -58,11 +53,7 @@
         Value: <input type="number" name="pointValue" required >
         </br>
         <input type="submit" value="ENTER NEW ITEM">
-    
     </form>
-    
-     
-
     
 </body>
 </html>
