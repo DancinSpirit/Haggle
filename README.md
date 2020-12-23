@@ -5,12 +5,12 @@ Haggle! is a game where 1 person is Gamemaster and 4 to 8 players trade for item
 ### Login
 #### Login Screen
 ![Login Screen](haggle_screenshots/login.png)
-If not logged in, the Home Page redirects you to a login screen where you can sign in. If you don't have an account you can hit register at the top of the screen.
+If not logged in, the Home Page redirects the user to a login screen where they can sign in. If the user doesn't have an account they can hit register at the top of the screen.
 #### Registration Screen
 ![Registration Screen](haggle_screenshots/register.png)
-On the registration screen you can make an account. If there is no gamemaster you will have the option to make your account a gamemaster account. Once your account is made you will be redirected to the login screen.
+On the registration screen the user can make an account. If there is no gamemaster the user will have the option to make their account a gamemaster account. Once their account is made they will be redirected to the login screen.
 ### Gamemaster
-After signing in with a Gamemaster account you are redirected to the Gamemaster Players Screen.
+After signing in with a Gamemaster account the user is redirected to the Gamemaster Players Screen.
 #### Gamemaster Players Screen
 ![Gamemaster Players Screen](haggle_screenshots/gamemaster_players.PNG)
 In this screen the gamemaster will be shown a list of all the players. Each player will have their scorre shown as well as two buttons redirecting to the Player's Rules, and Player's Items, and as an option to delete that player. Note that player accounts have to be created first for any players to show up in this list!
@@ -18,25 +18,26 @@ In this screen the gamemaster will be shown a list of all the players. Each play
 ![Player Rules](haggle_screenshots/player_rules.PNG)
 Both the Player Rules and Player Items screens function identically. The Gamemaster will see a list of that player's rules/items as well as all of it's information. They will also be able to add more rules/items to that player via a dropdown list at the bottom of the screen. Rules can also be removed.
 #### Gamemaster Nav Bar
-![Navbar](haggle_screenshots/navbar.PNG)
+![Navbar](haggle_screenshots/navbar.PNG)  
 Of course in order to add rules and items to players they have to exist first. There is a navbar at the top of the screen where the gamemaster can navigate to Items, Rules, Players, or the Trade Screen.
 #### Items/Rules
 ![Gamemaster Rules](haggle_screenshots/gamemaster_rules.PNG)
-The Items and Rules pages are pages where the gamemaster can see lists of all current Items/Rules. They can directly edit the information, as well as hit a button to delete a rule/item. At the bottom of the page is a section where you can add new rules/items. We decided to do things this way in order to economize on the number of views so that things don't get too confusing for the gamemaster.
+The Items and Rules pages are pages where the gamemaster can see lists of all current Items/Rules. They can directly edit the information, as well as hit a button to delete a rule/item. At the bottom of the page is a section where the gamemaster can add new rules/items. We decided to do things this way in order to economize on the number of views so that things don't get too confusing for the gamemaster.
 #### Extra Rule Functionality
 ![Special Effects](haggle_screenshots/special_effects.PNG)
-At the bottom of the Rules Page is extra options for rules that will automatically affect player points. You can select a number of items, and then apply an effect if a player has all of those items.
+At the bottom of the Rules Page is extra options for rules that will automatically affect player points. The gamemaster can select a number of items, and then apply an effect if a player has all of those items.
 #### Trade
-![Trade!](haggle_wireframes/route_gamemaster_trade.png)
+![Trade!](haggle_screenshots/trade.png)
 Finally once the gamemaster has added all of the items, rules, and then distributed them out amongst players, the game can properly begin. Whenever two players agree on a trade, the gamemaster can facilitate this by clicking on Trade! in the navbar. This will bring them to the trade screen. The trade screen will have three drop down menus on each side where the gamemaster can choose a Player, any number of that player's items, and any number of that player's rules. (Rules are not "traded" so much as "given"). The gamemaster can then hit the Trade! button to initate the trade which will update the database to reflect the trade.
 ### Player
-#### Player Select
-![Player Select](haggle_wireframes/route_players.png)
-Upon hitting "Players" on the homepage Players will be taken to a Player select where they can choose which player they are. They will then be taken to their Player Screen.
+Users who sign in as a player will be redirected to their inventory screen.
+#### Player Inventory
+![Player Inventory](haggle_screenshots/player_inventory.PNG)
+The Player Inventory page shows the player their rules and items. They can hit "Players" in their navbar to go to the Playe Screen.
 #### Player Screen
-![Player Screen](haggle_wireframes/player_wireframe.png)
-The player screen will show the player all of their current items as well as all of their known rules.
+![Player Screen](haggle_screenshots/player_list.PNG)
+The player screen will show a list of the other players and their items so players can keep track of who to trade with.
 ## ERD
-![ERD](haggle_wireframes/ERD.png)
+![ERD](haggle_screenshots/ERD.png)
 ## Stretch Goals
 Further stretch goals include adding messages to the user when login/registration attempts fail, as well as adding item removal from the player. The addition of more complex rule options are also 
