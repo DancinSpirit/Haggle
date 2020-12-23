@@ -13,28 +13,31 @@
     <%if(player.items.length===0){%>
         <h2>This player has no items!</h2>
     <%}else{%>
-    <ul>
+    <section id="list">
         <% player.items.forEach(item => { %>
             <%console.log("1", item);%>
             <%console.log("2",item.quantity);%>
             <%console.log("3",item.item);%>
-            <li><%= item.item.name %>: x<%= item.quantity %></li>
+            <section class="item">
+            <p><%= item.item.name %>: x<%= item.quantity %></p>
+            </section>
         <% }) %>
-    </ul>
+    </section>
     <%}%>
-    
-    <% if(items.length===0){%>
-        <p>There are no items!</p>
-    <%} else{%>
-    <form action="/gamemaster/players/<%=player._id%>/items" method="POST">
-        <select name="item">
-            <% items.forEach(item => { %>
-                <option value="<%= item._id %>"><%=item.name%></option> 
-            <% }) %>
-        </select>
-        Qt. <input type="number" name="quantity" min="1" required >
-        <input type="submit" value="Add New Item">
+
+    <form action="/gamemaster/players/<%=player._id%>/items" method="POST" id="form">
+        <h2>Add Items to <%=player.name%></h2>
+        <% if(items.length===0){%>
+            <p>There are no items!</p>
+        <%} else{%>
+            <select name="item">
+                <% items.forEach(item => { %>
+                    <option value="<%= item._id %>"><%=item.name%></option> 
+                <% }) %>
+            </select>
+            Qt. <input type="number" name="quantity" min="1" required >
+            <input type="submit" value="Add New Item">
+        <%}%>
     </form>
-    <%}%>
 </body>
 </html>

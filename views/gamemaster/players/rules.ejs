@@ -14,14 +14,12 @@
         <h2>This player has no rules!</h2>
     <%}else{%>
     <section id="list">
-        <section class="item">
-            <ul>
-                <% player.rules.forEach(rule => { %>
-                    <li>Rule <%= rule.number %></li>
-                    <li><%= rule.info %></li>
-                <% }) %>
-            </ul>
-        </section>
+        <% player.rules.forEach(rule => { %>
+            <section class="item">
+                <p>Rule <%= rule.number %></p>
+                <p><%= rule.info %></p>
+            </section>
+        <% }) %>
     </section>
     <%}%>
 
@@ -40,10 +38,11 @@
             <%ruleExists = false;%>
         <%}%>
     <%})%>
-    <% if(rulesLength===0){%>
-        <p>There are no rules to add!</p>
-    <%} else{%>
-    <form action="/gamemaster/players/<%=player._id%>/rules" method="POST">
+    <form action="/gamemaster/players/<%=player._id%>/rules" method="POST" id="form">
+        <h2>Add Rules to <%=player.name%></h2>
+        <% if(rulesLength===0){%>
+            <p>There are no rules to add!</p>
+        <%} else{%>
         <select name="rule" id="rule">
             <% let ruleExists = false; %>
             <% rules.forEach(rule => { %>
@@ -62,9 +61,7 @@
             <% }) %>
         </select>
         <input type="submit" value="Add New Rule">
+        <%}%>
     </form>
-    <p id=rule-number></p>
-    <p id=rule-info></p>
-    <%}%>
 </body>
 </html>
