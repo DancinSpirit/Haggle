@@ -3,10 +3,10 @@
 Haggle! is a game where 1 person is Gamemaster and 4 to 8 players trade for items and information! There are 10 Rules to start! 2 of the rules are public, and 8 are divided up evenly amongst each player. Each rule has information on how much certain items are worth and how to get points. It is the goal of each player to trade with the other players to gather as much information as possible and gather the right items together to get the most amount of points by the end of the game. This web app is designed for game masters and players to more easily keep track of items and rules. Right now, it allows players and the game master to create accounts. The gamemaster can then create rules and items, and then give those rules and items to players. The game master can also perform trades between players (players will be assumed to have agreed to this trade outside of the web app), and reflect the change in items and rules for each player, as well as show players a screen detailing all of their current rules and items, and a list of the items other players have. 
 ## User Stories
 ### Login
-#### Login Scrreen
+#### Login Screen
 ![Login Screen](haggle_screenshots/login.png)
 If not logged in, the Home Page redirects you to a login screen where you can sign in. If you don't have an account you can hit register at the top of the screen.
-#### Registration Screren
+#### Registration Screen
 ![Registration Screen](haggle_screenshots/register.png)
 On the registration screen you can make an account. If there is no gamemaster you will have the option to make your account a gamemaster account. Once your account is made you will be redirected to the login screen.
 ### Gamemaster
