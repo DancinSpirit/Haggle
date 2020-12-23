@@ -19,7 +19,11 @@
     <section id="list">
         <% player.items.forEach(item => { %>
             <section class="item">
-                <p><%= item.item.name %>: x<%= item.quantity %></p>
+                <p><%= item.item.name %>:</p>
+                <form action="/gamemaster/players/<%=player._id%>/items/<%= item.item._id %>?_method=PUT" method="POST">
+                    x<input type="number" name="quantity" required value=<%= item.quantity %> min="0">
+                    <input type="submit" value="Update Quantity!">
+                </form>
             </section>
         <% }) %>
     </section>
@@ -40,6 +44,6 @@
             <input type="submit" value="Add New Item">
         <%}%>
     </form>
-    
+
 </body>
 </html>
