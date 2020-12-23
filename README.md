@@ -12,19 +12,19 @@ On the registration screen you can make an account. If there is no gamemaster yo
 ### Gamemaster
 After signing in with a Gamemaster account you are redirected to the Gamemaster Players Screen.
 #### Gamemaster Players Screen
-![Gamemaster Players Screen](haggle_screenshots/gamemaster_players.png)
+![Gamemaster Players Screen](haggle_screenshots/gamemaster_players.PNG)
 In this screen the gamemaster will be shown a list of all the players. Each player will have their scorre shown as well as two buttons redirecting to the Player's Rules, and Player's Items, and as an option to delete that player. Note that player accounts have to be created first for any players to show up in this list!
 #### Player Rules and Player Items
-![Player Rules](haggle_screenshots/player_rules.png)
+![Player Rules](haggle_screenshots/player_rules.PNG)
 Both the Player Rules and Player Items screens function identically. The Gamemaster will see a list of that player's rules/items as well as all of it's information. They will also be able to add more rules/items to that player via a dropdown list at the bottom of the screen. Rules can also be removed.
 #### Gamemaster Nav Bar
-![Navbar](haggle_screenshots/navbar.png)
+![Navbar](haggle_screenshots/navbar.PNG)
 Of course in order to add rules and items to players they have to exist first. There is a navbar at the top of the screen where the gamemaster can navigate to Items, Rules, Players, or the Trade Screen.
 #### Items/Rules
-![Gamemaster Rules](haggle_screenshots/gamemaster_rules.png)
+![Gamemaster Rules](haggle_screenshots/gamemaster_rules.PNG)
 The Items and Rules pages are pages where the gamemaster can see lists of all current Items/Rules. They can directly edit the information, as well as hit a button to delete a rule/item. At the bottom of the page is a section where you can add new rules/items. We decided to do things this way in order to economize on the number of views so that things don't get too confusing for the gamemaster.
 #### Extra Rule Functionality
-![Special Effects](haggle_screenshots/special_effects.png)
+![Special Effects](haggle_screenshots/special_effects.PNG)
 At the bottom of the Rules Page is extra options for rules that will automatically affect player points. You can select a number of items, and then apply an effect if a player has all of those items.
 #### Trade
 ![Trade!](haggle_wireframes/route_gamemaster_trade.png)
