@@ -22,6 +22,7 @@ div{
     justify-content: end;
     border-style: solid;
     background-color: orange;
+    overflow-y: auto;
 }
 
 div h2{
@@ -34,6 +35,7 @@ ul{
     width: 100%;
     margin: 35px 0 0 0px;
     overflow-y: scroll;
+    font-size: 22px;
 }
 
 li{

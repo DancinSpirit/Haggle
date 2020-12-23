@@ -29,12 +29,12 @@
                 <ul>
                     <% player.rules.forEach(rule => { %>
                         <li><p>Rule #<%= rule.number %></p>
-                            <p><%= rule.info %></p></li>
+                            <p>"<%= rule.info %>"</p></li>
                     <% }) %>
 
                     <% rules.forEach(rule => { %>
                         <li><p>Rule #<%= rule.number %></p>
-                            <p><%= rule.info %></p></li>
+                            <p>"<%= rule.info %>"</p></li>
                     <% }) %>
                 </ul>
             </div>
