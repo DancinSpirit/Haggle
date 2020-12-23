@@ -40,10 +40,10 @@ const tradeProperties = async function tradeProperties(giver, receiver) {
 
 const addItemTo = async function addItemTo(playerId, itemId, quantity) {
 
-    const tradee = await db.Player.findById(playerId);
-     console.log("1tradee",tradee);
+    const trader = await db.Player.findById(playerId);
+     console.log("1tradee",trader);
 
-    const hasItem = tradee.items.find((item) => {console.log("item",item.item); return item.item.toString() === itemId}) 
+    const hasItem = trader.items.find((item) => {console.log("item",item.item); return item.item.toString() === itemId}) 
 
     if (hasItem) {//if player already has some of that item
         console.log("has item");
@@ -60,7 +60,7 @@ const addItemTo = async function addItemTo(playerId, itemId, quantity) {
 
 const addRuleTo = async function addRuleTo(playerId, ruleId) {
 
-    const updated = await db.Player.findByIdAndUpdate( playerId, {$push: {rules: ruleId}}, {new: true});
+    const updated = await db.Player.findByIdAndUpdate( playerId, {$addToSet: {rules: ruleId}}, {new: true});
     console.log("4updated", updated);
     return updated;
 }
@@ -324,22 +324,21 @@ router.get("/trade", async function (req, res) {
 
  router.put("/trade", async function (req, res) {
      try {
-
         const player1 = {
 
-            id: req.body.traderName,
-            itemId: req.body.traderItem,
-            quantity: req.body.traderQuantity,
-            ruleId: req.body.traderRule
+            id: req.body.trader1Name,
+            itemId: req.body.trader1Item,
+            quantity: req.body.trader1Quantity,
+            ruleId: req.body.trader1Rule
 
         }
 
         const player2 = {
 
-            id: req.body.tradeeName,
-            itemId: req.body.tradeeItem,
-            quantity: req.body.tradeeQuantity,
-            ruleId: req.body.tradeeRule
+            id: req.body.trader2Name,
+            itemId: req.body.trader2Item,
+            quantity: req.body.trader2Quantity,
+            ruleId: req.body.trader2Rule
 
         }
 

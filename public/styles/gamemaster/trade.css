@@ -1,0 +1,59 @@
+form{
+    height: 91vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 45% 55%;
+    
+
+
+}
+
+section{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+section>p:first-child{
+    margin: 0;
+
+}
+
+div.item_quantity {
+    width: 355px;
+    /* margin: 0 0 0 116px; */
+    display: flex;
+}
+
+div>p{
+
+    margin: 0 0 0 71px;
+
+}
+
+div>select{
+    /* align-self: flex-end; */
+    /* margin: 0 3px 0 0; */
+    width: fit-content;
+}
+
+p{
+    margin: 0px 49px 0 0;
+
+}
+
+select {
+    width: 109px;
+
+}
+
+
+input:last-child{
+    grid-column-start: 1;
+    grid-column-end: 3;
+    /* margin: auto 35%; */
+    margin: 0 35% 32% 35%;
+    font-size: xx-large;
+}
