@@ -22,7 +22,7 @@
 
         <h2>Items List</h2>
 
-        <section id="List">
+        <section id="list">
             <% items.forEach(item => { %>
                 <section class="info" id="<%=item._id%>-info">
                     <ul>
@@ -39,8 +39,9 @@
                     <form action="/gamemaster/items/<%= item._id %>?_method=PUT" method="POST">
     
                         Name: <input type="text" name="name" required value=<%=item.name%>>
+                        </br>
                         Value: <input type="number" name="pointValue" required value=<%=item.pointValue%> >
-                
+                        </br>
                         <input type="submit" value="Edit Item!">
                     
                     </form>
@@ -53,8 +54,9 @@
     <form action="/gamemaster/items" method="POST" id="form">
         <h2>ADD ITEM</h2>
         Name: <input type="text" name="name" required placeholder="item">
+        </br>
         Value: <input type="number" name="pointValue" required >
-
+        </br>
         <input type="submit" value="ENTER NEW ITEM">
     
     </form>

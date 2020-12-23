@@ -10,12 +10,22 @@
 <body>
     <%- include("../../partials/nav") %>
     <h1><%=player.name %>'s Secret Rules</h1>
-    <ul>
+    <%if(player.rules.length===0){%>
+        <h2>This player has no rules!</h2>
+    <%}else{%>
+    <section id="list">
         <% player.rules.forEach(rule => { %>
-            <li>Rule <%= rule.number %></li>
-            <li><%= rule.info %></li>
+            <section class="item">
+                <p>Rule <%= rule.number %></p>
+                <p><%= rule.info %></p>
+                <form action="/gamemaster/players/<%=player._id%>/rules/<%= rule._id %>?_method=DELETE" method="post">
+                    <input type="submit" value="Remove Rule">
+                </form>
+            </section>
         <% }) %>
-    </ul>
+    </section>
+    <%}%>
+
     <%let rulesLength = 0;%>
     <%let ruleExists = false; %>
     <% rules.forEach(rule => { %>
@@ -31,10 +41,11 @@
             <%ruleExists = false;%>
         <%}%>
     <%})%>
-    <% if(rulesLength===0){%>
-        <p>There are no rules to add!</p>
-    <%} else{%>
-    <form action="/gamemaster/players/<%=player._id%>/rules" method="POST">
+    <form action="/gamemaster/players/<%=player._id%>/rules" method="POST" id="form">
+        <h2>Add Rules to <%=player.name%></h2>
+        <% if(rulesLength===0){%>
+            <p>There are no rules to add!</p>
+        <%} else{%>
         <select name="rule" id="rule">
             <% let ruleExists = false; %>
             <% rules.forEach(rule => { %>
@@ -53,9 +64,7 @@
             <% }) %>
         </select>
         <input type="submit" value="Add New Rule">
+        <%}%>
     </form>
-    <p id=rule-number></p>
-    <p id=rule-info></p>
-    <%}%>
 </body>
 </html>

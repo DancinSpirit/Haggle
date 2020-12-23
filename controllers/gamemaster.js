@@ -130,6 +130,30 @@ router.post("/players/:id/rules", async function (req, res){
         return res.send(err);
     }
 })
+/* Delete a Rule from a Player */
+router.delete("/players/:id/rules/:rule", async function(req,res){
+    try{
+        const player = req.params.id;
+        const rule = req.params.rule;
+        const updatedPlayer = await db.Player.updateOne({_id: player},{$pull: {"rules": rule}});
+        res.redirect(`/gamemaster/players/${player}/rules`);
+    } catch(err){
+        console.log(err);
+        return res.send(err);
+    }
+})
+/* Delete a Player */
+router.delete("/players/:id/", async function(req,res){
+    try{
+        const player = req.params.id;
+        await db.User.findOneAndDelete({player: player});
+        await db.Player.findByIdAndDelete(player);
+        res.redirect(`/gamemaster/players/`);
+    } catch(err){
+        console.log(err);
+        return res.send(err);
+    }
+})
 
 /* ITEMS ROUTE */
 //index
