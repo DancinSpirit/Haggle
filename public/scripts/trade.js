@@ -2,16 +2,12 @@
 
 /*===========================FUNCTIONS=========================*/
 
-const removeOnSibling = function removeOnSibiling($selectedTransactor) {//tranbalhando aqui tirando o igual da lista do lado
+const removeOnSibling = function removeOnSibiling($selectedTransactor) {
 
-    // const $siblingDropdown = $selectedTransactor.parent().parent().siblings("section").children("selecte.name");
     const $siblingDropdown = $selectedTransactor.parent().parent().siblings("section").children("select.name");
     const $siblingOptions = $siblingDropdown.children();
-    // console.log($siblingOptions);
 
     for (let i = 0; i < $siblingOptions.length; i++) {
-        // console.log($selectedTransactor);
-        // console.log($siblingOptions.eq(i).text());
         if ($siblingOptions.eq(i).text() === $selectedTransactor.text()) {
             $siblingOptions.eq(i).css("display","none");
             console.log("blocked");
@@ -33,20 +29,16 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
     const $chosenPlayer = $dropDown.children((isLoad ? "option:first-of-type" : ":selected"));
 
     removeOnSibling($chosenPlayer);
-    // console.log($chosenPlayer);
 
     const $allDropdowns = $dropDown.siblings("p").find(".rules");
-    console.log($dropDown.siblings("p").find(".rules"));
     $.merge($allDropdowns, $dropDown.siblings("div").find(".items"));
-    // console.log($allDropdowns);
 
     for (let i = 0; i < $allDropdowns.length; i++) {
-        //console.log($allDropdowns.eq(i).attr("class"));
+
         if ($allDropdowns.eq(i).hasClass($chosenPlayer.text())) {
 
             $allDropdowns.eq(i).css("display","inline");
             $allDropdowns.eq(i).parent("p").css("display","inline");
-            // ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).css("display","inline") : $allDropdowns.eq(i).css("display","block"));
             if ($dropDown.hasClass("trader1")) {
                 ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","trader1Item") : $allDropdowns.eq(i).attr("name","trader1Rule"));
             } else {//if trader2
@@ -65,7 +57,6 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 const correctQuantity = function correctQuantity($dropDown) {
     const $chosenItem = $dropDown.children(":selected");
     const variableName = `${$chosenItem.parent().parent().parent().parent("section").attr("class")}Quantity`;
-    // console.log($chosenItem.parent().parent().parent());
 
     if($chosenItem.text() === "") {//if there is no item chosen
         console.log($(`select[name='${variableName}']`));
@@ -95,14 +86,6 @@ const correctQuantity = function correctQuantity($dropDown) {
 const $selectedTraders = $("section").children("select.name");
 console.log($selectedTraders);
 
-$selectedTraders.on("click", null, (event) => { 
-    
-    // event.stopPropagation();
-    console.log(event);
-    console.log("clicked");
-    
-});
-
 $selectedTraders.on("change", (event) => { 
 
     correctDropdowns($(event.target), false);
@@ -110,7 +93,6 @@ $selectedTraders.on("change", (event) => {
 });
 
 const $selectedItems = $("section").find("select.items");
-console.log($selectedItems);
 
 $selectedItems.on("change", (event) => { 
 
@@ -121,4 +103,3 @@ $selectedItems.on("change", (event) => {
 /*===========================ON LOAD=========================*/
 
 correctDropdowns($selectedTraders, true);
-// correctDropdowns($selectedTradee, true);
