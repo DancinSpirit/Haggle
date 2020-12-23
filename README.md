@@ -27,7 +27,7 @@ The Items and Rules pages are pages where the gamemaster can see lists of all cu
 ![Special Effects](haggle_screenshots/special_effects.PNG)
 At the bottom of the Rules Page is extra options for rules that will automatically affect player points. The gamemaster can select a number of items, and then apply an effect if a player has all of those items.
 #### Trade
-![Trade!](haggle_screenshots/trade.png)
+![Trade!](haggle_screenshots/trade.PNG)
 Finally once the gamemaster has added all of the items, rules, and then distributed them out amongst players, the game can properly begin. Whenever two players agree on a trade, the gamemaster can facilitate this by clicking on Trade! in the navbar. This will bring them to the trade screen. The trade screen will have three drop down menus on each side where the gamemaster can choose a Player, any number of that player's items, and any number of that player's rules. (Rules are not "traded" so much as "given"). The gamemaster can then hit the Trade! button to initate the trade which will update the database to reflect the trade.
 ### Player
 Users who sign in as a player will be redirected to their inventory screen.
