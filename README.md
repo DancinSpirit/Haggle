@@ -38,6 +38,6 @@ The Player Inventory page shows the player their rules and items. They can hit "
 ![Player Screen](haggle_screenshots/player_list.PNG)
 The player screen will show a list of the other players and their items so players can keep track of who to trade with.
 ## ERD
-![ERD](haggle_wireframes/ERD.png)
+![ERD](haggle_screenshots/ERD.png)
 ## Stretch Goals
 Further stretch goals include adding messages to the user when login/registration attempts fail, as well as adding item removal from the player. The addition of more complex rule options are also 
