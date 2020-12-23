@@ -164,9 +164,18 @@ router.delete("/players/:id/", async function(req,res){
         const player = req.params.id;
         await db.User.findOneAndDelete({player: player});
         await db.Player.findByIdAndDelete(player);
-        res.redirect(`/gamemaster/players/`);
+        return res.redirect(`/gamemaster/players/`);
     } catch(err){
         console.log(err);
+        return res.send(err);
+    }
+})
+router.delete("/players", async function(req,res){
+    try{
+        await db.User.deleteMany({});
+        await db.Player.deleteMany({});
+        return res.redirect("/logout");
+    } catch(err){
         return res.send(err);
     }
 })

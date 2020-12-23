@@ -23,10 +23,8 @@ nav{
 }
 
 nav>p{
-
     text-align: end;
     margin: 0 14px 0 0;
-
 }
 
 .nav-link{
@@ -43,7 +41,7 @@ nav>p{
     color: darkorange; 
 }
 
-h1, h2, form, p, li, a, .buttons, .Player, .info, .item-button{
+h1, h2, form, p, li, a, .buttons, .Player, .info{
     text-align: center;
     padding: 3px;
 }
@@ -95,3 +93,9 @@ ul{
     border-top: solid 5px;
     margin-top: 15px;
 }
+
+#warning{
+    color: darkred;
+    display: none;
+}
+
