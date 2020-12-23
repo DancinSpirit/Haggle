@@ -54,6 +54,6 @@ input:last-child{
     grid-column-start: 1;
     grid-column-end: 3;
     /* margin: auto 35%; */
-    margin: 0 35% 32% 35%;
+    margin: 0 35% 300px 35%;
     font-size: xx-large;
 }
