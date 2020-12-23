@@ -20,7 +20,7 @@
             <% for( let i = 1; i <= 2; i++ ) { %>
 
                 <section class= "trader<%= i %>">
-                    <select class= "trader<%= i %> name" name="trader<%= i %>Name" required >
+                    <p>PLAYER: </p><select class= "trader<%= i %> name" name="trader<%= i %>Name" required >
                         <option value=""></option>
                         <% players.forEach(player => { %>
                             <option value="<%= player._id %>"><%= player.name %></option>
@@ -29,20 +29,20 @@
     
                     <% players.forEach(player => { %>
                         <div class="item_quantity">
-                            <select class="<%= player.name %> items" name="trader<%= i %>Item">
+                            <p>ITEM: <select class="<%= player.name %> items" name="trader<%= i %>Item">
                                 <option value=""></option>
                                 <% player.items.forEach(item => { %>
                                     <option value="<%= item.item._id %>" quantity="<%= item.quantity %>"><%= item.item.name %></option>
                                 <% }) %>
-                            </select>
+                            </select></p>
                         </div>
     
-                        <select class="<%= player.name %> rules" name="trader<%= i %>Rule">
+                        <p>RULE: <select class="<%= player.name %> rules" name="trader<%= i %>Rule">
                             <option value=""></option>
                             <% player.rules.forEach(rule => { %>
                                 <option value="<%= rule._id %>"><%= rule.number %></option>
                             <% }) %>
-                        </select>
+                        </select></p>
     
                     <% }) %>
                 </section>
