@@ -17,9 +17,9 @@ const router = express.Router();
 router.get("/", async function (req, res) {
     
    try {
-       const allPlayers = await db.Player.find({});
+        const allPlayers = await db.Player.find({}).populate("items.item");
 
-    res.render("players/index", {players: allPlayers});
+        res.render("players/index", {players: allPlayers});
 
    } catch (err) {
        res.send(err)
