@@ -26,40 +26,46 @@ const removeOnSibling = function removeOnSibiling($selectedTransactor) {//tranba
 const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
     //removes the quantity if changing players
     // console.log($dropDown.siblings("select.items:not([name='possible'])"));
-    $dropDown.siblings("select.items").not("[name='possible']").val("");
-    correctQuantity($dropDown.siblings("select.items").not("[name='possible']"));
+    console.log($dropDown.siblings("div").children("select.items").not("[name='possible']"));
+    $dropDown.siblings("div").children("select.items").not("[name='possible']").val("");
+    correctQuantity($dropDown.siblings("div").children("select.items").not("[name='possible']"));
 
     const $chosenPlayer = $dropDown.children((isLoad ? "option:first-of-type" : ":selected"));
 
     removeOnSibling($chosenPlayer);
     // console.log($chosenPlayer);
 
-    const $allDropdowns = $dropDown.siblings(".items, .rules");
+    const $allDropdowns = $dropDown.siblings("p").find(".rules");
+    console.log($dropDown.siblings("p").find(".rules"));
+    $.merge($allDropdowns, $dropDown.siblings("div").find(".items"));
     // console.log($allDropdowns);
 
     for (let i = 0; i < $allDropdowns.length; i++) {
         //console.log($allDropdowns.eq(i).attr("class"));
         if ($allDropdowns.eq(i).hasClass($chosenPlayer.text())) {
 
-            $allDropdowns.eq(i).css("display","block");
-            if ($dropDown.hasClass("trader")) {
-                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","traderItem") : $allDropdowns.eq(i).attr("name","traderRule"));
-            } else {//if tradee
-                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","tradeeItem") : $allDropdowns.eq(i).attr("name","tradeeRule"));
+            $allDropdowns.eq(i).css("display","inline");
+            $allDropdowns.eq(i).parent("p").css("display","inline");
+            // ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).css("display","inline") : $allDropdowns.eq(i).css("display","block"));
+            if ($dropDown.hasClass("trader1")) {
+                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","trader1Item") : $allDropdowns.eq(i).attr("name","trader1Rule"));
+            } else {//if trader2
+                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","trader2Item") : $allDropdowns.eq(i).attr("name","trader2Rule"));
             }
             
         } else {
+            $allDropdowns.eq(i).parent("p").css("display","none");
             $allDropdowns.eq(i).css("display","none");
             $allDropdowns.eq(i).attr("name","possible")
         }     
     }
     
 }
-//TODO fix bug where if you change the player without unselecting the item the quantity dropdown still shows
-const correctQuantity = function correctQuantity($dropDown) {
 
+const correctQuantity = function correctQuantity($dropDown) {
     const $chosenItem = $dropDown.children(":selected");
-    const variableName = `${$chosenItem.parent().parent("section").attr("class")}Quantity`;
+    const variableName = `${$chosenItem.parent().parent().parent().parent("section").attr("class")}Quantity`;
+    // console.log($chosenItem.parent().parent().parent());
 
     if($chosenItem.text() === "") {//if there is no item chosen
         console.log($(`select[name='${variableName}']`));
@@ -81,7 +87,7 @@ const correctQuantity = function correctQuantity($dropDown) {
                                 </select>`)
 
 
-    $chosenItem.parent().after($quantityDropdown);
+    $dropDown.parent().after($quantityDropdown);
 }
 
 /*===========================EVENT LISTENERS=========================*/
@@ -103,7 +109,7 @@ $selectedTraders.on("change", (event) => {
 
 });
 
-const $selectedItems = $("section").children("select.items");
+const $selectedItems = $("section").find("select.items");
 console.log($selectedItems);
 
 $selectedItems.on("change", (event) => { 
