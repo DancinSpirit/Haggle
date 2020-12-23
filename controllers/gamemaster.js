@@ -60,7 +60,7 @@ const addItemTo = async function addItemTo(playerId, itemId, quantity) {
 
 const addRuleTo = async function addRuleTo(playerId, ruleId) {
 
-    const updated = await db.Player.findByIdAndUpdate( playerId, {$push: {rules: ruleId}}, {new: true});
+    const updated = await db.Player.findByIdAndUpdate( playerId, {$addToSet: {rules: ruleId}}, {new: true});
     console.log("4updated", updated);
     return updated;
 }
@@ -300,7 +300,6 @@ router.get("/trade", async function (req, res) {
 
  router.put("/trade", async function (req, res) {
      try {
-        // res.send(req.body);
         const player1 = {
 
             id: req.body.trader1Name,
