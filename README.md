@@ -40,4 +40,4 @@ The player screen will show a list of the other players and their items so playe
 ## ERD
 ![ERD](haggle_screenshots/ERD.png)
 ## Stretch Goals
-Further stretch goals include adding messages to the user when login/registration attempts fail, as well as adding item removal from the player. The addition of more complex rule options is also intended.
+Further stretch goals include adding messages to the user when login/registration attempts fail, as well as saving items/rules into "gamestates" to be loaded for future games, and more complex rule options.
