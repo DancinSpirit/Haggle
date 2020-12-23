@@ -15,65 +15,40 @@
 
     <h1>GET READY TO TRADE!</h1>
 
-    
         <form action="/gamemaster/trade?_method=PUT" method="post">
-            <section class= "trader">
-                <select class= "trader name" name="traderName" required >
-                    <option value=""></option>
-                    <% players.forEach(player => { %>
-                        <option value="<%= player._id %>"><%= player.name %></option>
-                    <% }) %>
-                </select>
 
-                <% players.forEach(player => { %>
-                    <div class="item_quantity">
-                        <select class="<%= player.name %> items" name="traderItem">
+            <% for( let i = 1; i <= 2; i++ ) { %>
+
+                <section class= "trader<%= i %>">
+                    <select class= "trader<%= i %> name" name="trader<%= i %>Name" required >
+                        <option value=""></option>
+                        <% players.forEach(player => { %>
+                            <option value="<%= player._id %>"><%= player.name %></option>
+                        <% }) %>
+                    </select>
+    
+                    <% players.forEach(player => { %>
+                        <div class="item_quantity">
+                            <select class="<%= player.name %> items" name="trader<%= i %>Item">
+                                <option value=""></option>
+                                <% player.items.forEach(item => { %>
+                                    <option value="<%= item.item._id %>" quantity="<%= item.quantity %>"><%= item.item.name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+    
+                        <select class="<%= player.name %> rules" name="trader<%= i %>Rule">
                             <option value=""></option>
-                            <% player.items.forEach(item => { %>
-                                <option value="<%= item.item._id %>" quantity="<%= item.quantity %>"><%= item.item.name %></option>
+                            <% player.rules.forEach(rule => { %>
+                                <option value="<%= rule._id %>"><%= rule.number %></option>
                             <% }) %>
                         </select>
-                    </div>
-
-                    <select class="<%= player.name %> rules" name="traderRule">
-                        <option value=""></option>
-                        <% player.rules.forEach(rule => { %>
-                            <option value="<%= rule._id %>"><%= rule.number %></option>
-                        <% }) %>
-                    </select>
-
-                <% }) %>
-            </section>
     
-
-            <section class= "tradee">
-                <select class= "tradee name" name="tradeeName" required>
-                    <option value=""></option>
-                    <% players.forEach(player => { %>
-                        <option value="<%= player._id %>"><%= player.name %></option>
                     <% }) %>
-                </select>
-
-                <% players.forEach(player => { %>
-                    <div class="item_quantity"></div>
-                        <select class="<%= player.name %> items" name="tradeeItem">
-                            <option value=""></option>
-                            <% player.items.forEach(item => { %>
-                                <option value="<%= item.item._id %>" quantity="<%= item.quantity %>"><%= item.item.name %></option>
-                            <% }) %>
-                        </select>   
-                    </div>
-
-                    <select class="<%= player.name %> rules" name="tradeeRule">
-                        <option value=""></option>
-                        <% player.rules.forEach(rule => { %>
-                            <option value="<%= rule._id %>"><%= rule.number %></option>
-                        <% }) %>
-                    </select>
-
-                <% }) %>
-            </section>
-
+                </section>
+            
+            <% } %>
+            
             <input type="submit" value="TRADE.">
         </form>
     

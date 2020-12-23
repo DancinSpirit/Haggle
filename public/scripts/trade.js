@@ -45,10 +45,10 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 
             $allDropdowns.eq(i).css("display","block");
             ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).css("display","inline") : $allDropdowns.eq(i).css("display","block"));
-            if ($dropDown.hasClass("trader")) {
-                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","traderItem") : $allDropdowns.eq(i).attr("name","traderRule"));
-            } else {//if tradee
-                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","tradeeItem") : $allDropdowns.eq(i).attr("name","tradeeRule"));
+            if ($dropDown.hasClass("trader1")) {
+                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","trader1Item") : $allDropdowns.eq(i).attr("name","trader1Rule"));
+            } else {//if trader2
+                ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","trader2Item") : $allDropdowns.eq(i).attr("name","trader2Rule"));
             }
             
         } else {
@@ -61,7 +61,7 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 //TODO fix bug where if you change the player without unselecting the item the quantity dropdown still shows
 const correctQuantity = function correctQuantity($dropDown) {
     const $chosenItem = $dropDown.children(":selected");
-    const variableName = `${$chosenItem.parent().parent("section").attr("class")}Quantity`;
+    const variableName = `${$chosenItem.parent().parent().parent("section").attr("class")}Quantity`;
 
     if($chosenItem.text() === "") {//if there is no item chosen
         console.log($(`select[name='${variableName}']`));
