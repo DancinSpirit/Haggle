@@ -26,8 +26,9 @@ const removeOnSibling = function removeOnSibiling($selectedTransactor) {//tranba
 const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
     //removes the quantity if changing players
     // console.log($dropDown.siblings("select.items:not([name='possible'])"));
-    $dropDown.siblings("select.items").not("[name='possible']").val("");
-    correctQuantity($dropDown.siblings("select.items").not("[name='possible']"));
+    console.log($dropDown.siblings("div").children("select.items").not("[name='possible']"));
+    $dropDown.siblings("div").children("select.items").not("[name='possible']").val("");
+    correctQuantity($dropDown.siblings("div").children("select.items").not("[name='possible']"));
 
     const $chosenPlayer = $dropDown.children((isLoad ? "option:first-of-type" : ":selected"));
 
@@ -35,13 +36,15 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
     // console.log($chosenPlayer);
 
     const $allDropdowns = $dropDown.siblings(".items, .rules");
-    // console.log($allDropdowns);
+    $.merge($allDropdowns, $dropDown.siblings("div").children(".items"));
+    //console.log($allDropdowns);
 
     for (let i = 0; i < $allDropdowns.length; i++) {
         //console.log($allDropdowns.eq(i).attr("class"));
         if ($allDropdowns.eq(i).hasClass($chosenPlayer.text())) {
 
             $allDropdowns.eq(i).css("display","block");
+            ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).css("display","inline") : $allDropdowns.eq(i).css("display","block"));
             if ($dropDown.hasClass("trader")) {
                 ($allDropdowns.eq(i).hasClass("items") ? $allDropdowns.eq(i).attr("name","traderItem") : $allDropdowns.eq(i).attr("name","traderRule"));
             } else {//if tradee
@@ -57,7 +60,6 @@ const correctDropdowns = function correctDropdowns($dropDown, isLoad) {
 }
 //TODO fix bug where if you change the player without unselecting the item the quantity dropdown still shows
 const correctQuantity = function correctQuantity($dropDown) {
-
     const $chosenItem = $dropDown.children(":selected");
     const variableName = `${$chosenItem.parent().parent("section").attr("class")}Quantity`;
 
@@ -103,7 +105,7 @@ $selectedTraders.on("change", (event) => {
 
 });
 
-const $selectedItems = $("section").children("select.items");
+const $selectedItems = $("section").children("div").children("select.items");
 console.log($selectedItems);
 
 $selectedItems.on("change", (event) => { 
