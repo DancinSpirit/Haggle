@@ -286,8 +286,6 @@ router.get("/rules", async function (req, res) {
             const context = {description: "You tried to add a rule with a rule number that already exists!", redirect: "/gamemaster/rules", button: "Rules Page"};
             return res.render("error",context);
         }
-        
- 
     } catch (err) {
         res.send(err);
     }
