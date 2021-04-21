@@ -25,7 +25,7 @@ app.use(methodOverride("_method"));
 /* Session */
 app.use(session({
     store: new MongoStore({
-        url: "mongodb://localhost:27017/haggle"
+        url: process.env.MONGODB_URI,
     }),
     secret: "Shhhhh it's secret",
     resave: false,
