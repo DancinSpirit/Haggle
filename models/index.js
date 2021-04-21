@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const dbUrl = "mongodb://localhost:27017/haggle";
+require("dotenv").config()
+const dbUrl = process.env.MONGODB_URI;
 
 mongoose.connect(dbUrl, {
    useNewUrlParser: true,

@@ -4,15 +4,17 @@ const methodOverride = require("method-override");
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
+
 /* Interal Modules */
 const db = require("./models");
 const controllers = require("./controllers");
 
 /* Instanced Modules */
 const app = express();
+require("dotenv").config()
+const PORT = process.env.PORT;
 
 /* Configuration */
-const PORT = 4000;
 app.set("view engine", "ejs");
 
 /* Middleware */
